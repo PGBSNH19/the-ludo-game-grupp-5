@@ -28,45 +28,9 @@ namespace TheLudoGame
                 colors.RemoveAt(colorChose);
                 Console.Clear();
             }
-            int testDie = ThrowDie();
+            
         }
 
-        public static int ThrowDie()
-        {
-            Random DieThrow = new Random();
-
-            int result = DieThrow.Next(1, 7);
-
-            return result;
-        }
-    }
-
-    public class Game
-    {
-        public int GameID { get; set; }
-        public bool Finished { get; set; }
-        public List<Player> Players { get; set; }
-
-        public Game()
-        {
-            Players = new List<Player>();
-        }
-    }
-
-    public class Player
-    {
-        public int PlayerID { get; set; }
-        public string PlayerName { get; set; }
-        public string PlayerColor { get; set; }
-        public List<Token> Tokens { get; set; }
-    }
-
-    public class Token
-    {
-        public int TokenID { get; set; }
-        public int GameBoardPosition { get; set; }
-        public int EndLinePosition { get; set; }
-        public bool AtEndLine { get; set; }
-        public bool InGoal { get; set; }
+       
     }
 }
