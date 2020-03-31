@@ -10,8 +10,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Classes\" />
     <Folder Include="Interfaces\" />
+    <Folder Include="Database\" />
   </ItemGroup>
 
 </Project>

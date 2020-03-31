@@ -3,35 +3,70 @@ using System.Collections.Generic;
 
 namespace TheLudoGame
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            List<string> colors = new List<string> { "röd", "blå", "grön", "gul" };
+            Game testGame = new Game();
+
+            Console.WriteLine("Chose how many players: ");
+            int antalSpelare = int.Parse(Console.ReadLine());
+            for (int i = 1; i <= antalSpelare; i++)
+            {
+                var newPlayer = new Player();
+                Console.WriteLine($"Skriv ditt namn spelare: {i}");
+                newPlayer.PlayerName = Console.ReadLine();
+                Console.WriteLine("chose color");
+                for (int x = 0; x < colors.Count; x++)
+                {
+                    Console.WriteLine($"{x} , {colors[x]}");
+                }
+                int colorChose = int.Parse(Console.ReadLine());
+                newPlayer.PlayerColor = colors[colorChose];
+                testGame.Players.Add(newPlayer);
+                colors.RemoveAt(colorChose);
+                Console.Clear();
+            }
+            int testDie = ThrowDie();
+        }
+
+        public static int ThrowDie()
+        {
+            Random DieThrow = new Random();
+
+            int result = DieThrow.Next(1, 7);
+
+            return result;
         }
     }
 
-    class Game
+    public class Game
     {
-        int GameID { get; set; }
-        bool Finished { get; set; }
-        List<Player> Players { get; set; }
+        public int GameID { get; set; }
+        public bool Finished { get; set; }
+        public List<Player> Players { get; set; }
+
+        public Game()
+        {
+            Players = new List<Player>();
+        }
     }
 
-    class Player
+    public class Player
     {
-        int PlayerID { get; set; }
-        string PlayerName { get; set; }
-        string PlayerColor { get; set; }
-        List<Token> Tokens { get; set; }
+        public int PlayerID { get; set; }
+        public string PlayerName { get; set; }
+        public string PlayerColor { get; set; }
+        public List<Token> Tokens { get; set; }
     }
 
-    class Token
+    public class Token
     {
-        int TokenID { get; set; }
-        int GameBoardPosition { get; set; }
-        int EndLinePosition { get; set; }
-        bool AtEndLine { get; set; }
-        bool InGoal { get; set; }
+        public int TokenID { get; set; }
+        public int GameBoardPosition { get; set; }
+        public int EndLinePosition { get; set; }
+        public bool AtEndLine { get; set; }
+        public bool InGoal { get; set; }
     }
 }
