@@ -14,5 +14,29 @@ namespace GameEngine
 
             return result;
         }
+
+        public static int MoveToken(int tokenCurrentPosition, int dieResult)
+        {
+            int tokenNewPosition = tokenCurrentPosition;
+
+            for (int i = 1; i <= dieResult; i++)
+            {
+                if (tokenNewPosition >= 45)
+                {
+                    for (int y = i; y <= dieResult; y++)
+                    {
+                        i++;
+                        tokenNewPosition--;
+                    }
+                }
+                else
+                {
+                    tokenNewPosition++;
+                }
+            }
+            return tokenNewPosition;
+        }
     }
+
+
 }
