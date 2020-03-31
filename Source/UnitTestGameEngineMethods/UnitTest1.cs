@@ -11,7 +11,8 @@ namespace UnitTestGameEngineMethods
         public void TestingDieThrow()
         {
             int testResult = TokenMovement.ThrowDie();
-            Assert.IsTrue(testResult >= 1 && testResult <= 7);
+            Assert.IsTrue(testResult >= 1 && testResult <= 6);
         }
+
     }
 }
