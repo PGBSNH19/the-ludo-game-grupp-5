@@ -12,5 +12,29 @@ namespace TheLudoGame
         {
             Players = new List<Player>();
         }
+
+        public Player CheckTurn(int index)
+        {
+
+
+            return this.Players[index];
+        }
+
+        //public static AutoSave()
+        //{
+
+        //}
+
+        public bool CheckWinner()
+        {
+
+            return this.Finished;
+        }
+
+        //public static LogWinner()
+        //{
+
+        //}
+
     }
 }

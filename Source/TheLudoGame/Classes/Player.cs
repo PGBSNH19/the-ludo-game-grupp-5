@@ -14,5 +14,15 @@ namespace TheLudoGame
         {
             Tokens = new List<Token>();
         }
+
+        //public static ChooseToken()
+        //{
+
+        //}
+
+        //public static SaveGame()
+        //{
+
+        //}
     }
 }

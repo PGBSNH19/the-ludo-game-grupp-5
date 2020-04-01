@@ -10,23 +10,25 @@ namespace UnitTestGameEngineMethods
         [TestMethod]
         public void TestingDieThrow()
         {
-            int testResult = TokenMovement.ThrowDie();
+            int testResult = Die.ThrowDie();
             Assert.IsTrue(testResult >= 1 && testResult <= 6);
         }
 
         [TestMethod]
         public void TestingTokenMovmentForward()
         {
-            int testForwardPosition = TokenMovement.MoveToken(31, 5);
+            int testForwardPosition = Die.MoveToken(31, 5);
             Assert.IsTrue(testForwardPosition == 36);
         }
 
         [TestMethod]
         public void TestingTokenMovmentBackwards()
         {
-            int testBackwardPosition = TokenMovement.MoveToken(43, 5);
+            int testBackwardPosition = Die.MoveToken(43, 5);
             Assert.IsTrue(testBackwardPosition == 42);
         }
 
     }
+
+
 }

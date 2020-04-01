@@ -1,49 +1,56 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using GameEngine;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using TheLudoGame.Classes;
 
 namespace TheLudoGame
 {
     public class Program
     {
-        private static void Main(string[] args)
+        public static void Main(string[] args)
         {
             //Test för att se om databasen lagrar som den ska
             List<string> colors = new List<string> { "röd", "blå", "grön", "gul" };
             Game testGame = new Game();
 
-            Console.WriteLine("Hur många spelare?: ");
-            int antalSpelare = int.Parse(Console.ReadLine());
-            for (int i = 1; i <= antalSpelare; i++)
+            //Console.WriteLine("Hur många spelare?: ");
+            //int antalSpelare = int.Parse(Console.ReadLine());
+            for (int i = 1; i <= 2; i++)
             {
                 var newPlayer = new Player();
-                Console.WriteLine($"Skriv ditt namn spelare: {i}");
-                newPlayer.PlayerName = Console.ReadLine();
-                Console.WriteLine("Välj färg");
-                for (int x = 0; x < colors.Count; x++)
-                {
-                    Console.WriteLine($"{x} , {colors[x]}");
-                }
-                for (int y = 0; y < 4; y++)
-                {
-                    var newToken = new Token();
-                    newPlayer.Tokens.Add(newToken);
-                }
-                int colorChose = int.Parse(Console.ReadLine());
-                newPlayer.PlayerColor = colors[colorChose];
+                //Console.WriteLine($"Skriv ditt namn spelare: {i}");
+                newPlayer.PlayerName = $"Spelare {i}";
+
+                var newToken = new Token();
+                newPlayer.Tokens.Add(newToken);
+
+                newPlayer.PlayerColor = colors[i];
                 testGame.Players.Add(newPlayer);
-                colors.RemoveAt(colorChose);
+                colors.RemoveAt(i);
                 Console.Clear();
             }
-
-            var context = new MyContext();
-            context.Add<Game>(testGame);
-            context.SaveChanges();
-            var testDatabas = context.Games.Include(g => g.Players).Where(g => g.Finished == false).FirstOrDefault();
+            TestGame(testGame);
         }
 
-       
+        public static void TestGame(Game testGame)
+        {
+            int count = 0;
+            while (true)
+            {
+                ThrowDice(testGame.Players[count]);
+
+                count++;
+                if (count > testGame.Players.Count - 1)
+                {
+                    count = 0;
+                }
+            }
+        }
+
+        public static void ThrowDice(Player testPlayer)
+        {
+            testPlayer.Tokens[0].MoveToken(Die.ThrowDie());
+        }
     }
+
+
 }
