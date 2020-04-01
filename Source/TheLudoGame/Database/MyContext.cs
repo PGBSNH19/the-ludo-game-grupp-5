@@ -8,9 +8,9 @@ namespace TheLudoGame.Classes
 {
     internal class MyContext : DbContext
     {
-        DbSet<Game> Games { get; set; }
-        DbSet<Player> Players { get; set; }
-        DbSet<Token> Tokens { get; set; }
+        public DbSet<Game> Games { get; set; }
+        public DbSet<Player> Players { get; set; }
+        public DbSet<Token> Tokens { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder dbContext)
         {
             dbContext.UseSqlServer(@"Data Source=den1.mssql8.gear.host;Initial Catalog=dbtheludogame;User id=dbtheludogame;password=Ip5ych-!9Vb1;");
