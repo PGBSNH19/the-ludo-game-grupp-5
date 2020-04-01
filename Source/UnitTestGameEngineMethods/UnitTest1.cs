@@ -27,7 +27,7 @@ namespace UnitTestGameEngineMethods
         }
 
         [TestMethod]
-        public void Token_MovmeToken_Backwards_False()
+        public void Token_MoveToken_BackwardsFromGoal_False()
         {
             var test = new Token();
             test.GameBoardPosition = 44;
@@ -36,7 +36,7 @@ namespace UnitTestGameEngineMethods
         }
 
         [TestMethod]
-        public void Token_MovmeToken_Backwards_True()
+        public void Token_MoveToken_BackwardsFromGoal_True()
         {
             var test = new Token();
             test.GameBoardPosition = 44;
@@ -54,7 +54,7 @@ namespace UnitTestGameEngineMethods
                 var testToken = new Token();
                 if (i > 2)
                 {
-                    testToken.InGoal = true;
+                    testToken.InGoal = false;
                     testWinner.Tokens.Add(testToken);
                 }
                 else

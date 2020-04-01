@@ -16,8 +16,13 @@ namespace TheLudoGameApp
             {
                 var newPlayer = new Player();
                 newPlayer.PlayerName = $"Spelare {i}";
-                var newToken = new Token();
-                newPlayer.Tokens.Add(newToken);
+                for(int y = 0; y < 4; y++)
+                {
+                    var newToken = new Token();
+                    newToken.InNest = true;
+                    newPlayer.Tokens.Add(newToken);
+                }
+                
                 newPlayer.PlayerColor = colors[i];
                 testGame.Players.Add(newPlayer);
             }
@@ -52,8 +57,8 @@ namespace TheLudoGameApp
 
         public static void ThrowDice(Player testPlayer)
         {
-            testPlayer.Tokens[0].MoveToken(Die.ThrowDie());
-            testPlayer.Tokens[0].HasFinished();
+            int testDie = Die.ThrowDie();
+            var tokens = Player.ChooseToken(testPlayer, testDie);
         }
     }
 }
