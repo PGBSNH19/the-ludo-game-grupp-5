@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace GameEngine
+namespace TheLudoGameEngine
 
 {
     public class Game
@@ -20,7 +20,6 @@ namespace GameEngine
             if (amountOfPlayers > 4 || amountOfPlayers < 2)
             {
                 throw new Exception("The amount of players needs to be between 2-4");
-
             }
             else
             {
@@ -33,7 +32,6 @@ namespace GameEngine
             }
         }
 
-
         public Player CheckTurn(int index)
         {
             return this.Players[index];
@@ -41,7 +39,6 @@ namespace GameEngine
 
         //public static AutoSave()
         //{
-
         //}
 
         public bool CheckWinner()
@@ -51,8 +48,6 @@ namespace GameEngine
 
         //public static LogWinner()
         //{
-
         //}
-
     }
 }

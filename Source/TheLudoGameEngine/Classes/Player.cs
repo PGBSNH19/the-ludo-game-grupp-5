@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace GameEngine
+namespace TheLudoGameEngine
 {
     public class Player
     {
@@ -17,12 +17,10 @@ namespace GameEngine
 
         //public static ChooseToken()
         //{
-
         //}
 
         //public static SaveGame()
         //{
-
         //}
     }
 }

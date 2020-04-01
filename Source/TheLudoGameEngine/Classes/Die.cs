@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GameEngine
+namespace TheLudoGameEngine
 {
     public static class Die
     {
@@ -12,7 +12,5 @@ namespace GameEngine
 
             return result;
         }
-
     }
 }
-

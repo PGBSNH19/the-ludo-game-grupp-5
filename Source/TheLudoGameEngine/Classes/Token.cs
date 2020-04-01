@@ -1,4 +1,4 @@
-﻿namespace GameEngine
+﻿namespace TheLudoGameEngine
 {
     public class Token
     {
@@ -11,7 +11,6 @@
 
         public int MoveToken(int dieResult)
         {
-
             for (int i = 1; i <= dieResult; i++)
             {
                 if (this.GameBoardPosition >= 45)
@@ -26,7 +25,6 @@
                 {
                     this.GameBoardPosition++;
                 }
-                
             }
             return this.GameBoardPosition;
         }

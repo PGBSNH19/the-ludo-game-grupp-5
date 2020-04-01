@@ -1,28 +1,25 @@
-﻿using GameEngine;
+﻿using TheLudoGameEngine;
 using System;
 using System.Collections.Generic;
 
-namespace LudoGameApp
+namespace TheLudoGameApp
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             //Test för att se om databasen lagrar som den ska
             List<string> colors = new List<string> { "röd", "blå", "grön", "gul" };
             Game testGame = new Game();
 
-            
             for (int i = 0; i < 4; i++)
             {
-                var newPlayer = new Player();  
+                var newPlayer = new Player();
                 newPlayer.PlayerName = $"Spelare {i}";
                 var newToken = new Token();
                 newPlayer.Tokens.Add(newToken);
                 newPlayer.PlayerColor = colors[i];
                 testGame.Players.Add(newPlayer);
-                
-               
             }
             TestGame(testGame);
         }
@@ -32,10 +29,10 @@ namespace LudoGameApp
             int count = 0;
             int rounds = 1;
             bool game = true;
-            while(game == true)
+            while (game == true)
             {
                 ThrowDice(testGame.Players[count]);
-                if(testGame.Players[count].Tokens[0].InGoal == true)
+                if (testGame.Players[count].Tokens[0].InGoal == true)
                 {
                     Console.WriteLine($"{testGame.Players[count].PlayerName} won");
                     Console.WriteLine($"{testGame.Players[0].PlayerName} Token {testGame.Players[0].Tokens[0].GameBoardPosition}");
@@ -50,9 +47,7 @@ namespace LudoGameApp
                     rounds++;
                     count = 0;
                 }
-
             }
-  
         }
 
         public static void ThrowDice(Player testPlayer)
@@ -60,6 +55,5 @@ namespace LudoGameApp
             testPlayer.Tokens[0].MoveToken(Die.ThrowDie());
             testPlayer.Tokens[0].HasFinished();
         }
-    
     }
 }
