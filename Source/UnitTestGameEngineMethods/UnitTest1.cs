@@ -1,3 +1,4 @@
+
 using GameEngine;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -17,15 +18,18 @@ namespace UnitTestGameEngineMethods
         [TestMethod]
         public void TestingTokenMovmentForward()
         {
-            int testForwardPosition = Die.MoveToken(31, 5);
-            Assert.IsTrue(testForwardPosition == 36);
+            var test = new Token();
+            test.GameBoardPosition = test.MoveToken(5);
+            Assert.IsFalse(test.GameBoardPosition == 36);
         }
 
         [TestMethod]
         public void TestingTokenMovmentBackwards()
         {
-            int testBackwardPosition = Die.MoveToken(43, 5);
-            Assert.IsTrue(testBackwardPosition == 42);
+            var test = new Token();
+            test.GameBoardPosition = 44;
+            test.GameBoardPosition = test.MoveToken(5);
+            Assert.IsFalse(test.GameBoardPosition == 42);
         }
 
     }
