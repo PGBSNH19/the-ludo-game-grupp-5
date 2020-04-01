@@ -2,7 +2,7 @@
 
 namespace TheLudoGameEngine.Migrations
 {
-    public partial class update : Migration
+    public partial class test : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
