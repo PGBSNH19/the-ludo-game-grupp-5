@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace TheLudoGame
+namespace GameEngine
 {
     public class Player
     {

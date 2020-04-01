@@ -1,4 +1,4 @@
-﻿namespace TheLudoGame
+﻿namespace GameEngine
 {
     public class Token
     {
