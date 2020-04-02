@@ -17,27 +17,46 @@ namespace TheLudoGameEngine
             Players = new List<Player>();
         }
 
-        public List<Player> CreatePlayers(int amountOfPlayers)
+        //    List<string> colors = new List<string> { "röd", "blå", "grön", "gul" };
+        //    Game testGame = new Game();
+
+        //        for (int i = 0; i< 4; i++)
+        //        {
+        //            var newPlayer = new Player();
+        //    newPlayer.PlayerName = $"Spelare {i}";
+        //            for(int y = 0; y< 4; y++)
+        //            {
+        //                var newToken = new Token();
+        //    newToken.InNest = true;
+        //                newPlayer.Tokens.Add(newToken);
+        //            }
+
+        //newPlayer.PlayerColor = colors[i];
+        //            testGame.Players.Add(newPlayer);
+        //        }
+
+        public void CreatePlayers(int antalSpelare, string namnSpelare, int color)
         {
-            if (amountOfPlayers > 4 || amountOfPlayers < 2)
+            List<string> colors = new List<string> { "röd", "blå", "grön", "gul" };
+
+            // lägg till namn färg och token
+            if (antalSpelare > 4 || antalSpelare < 2)
             {
                 throw new Exception("The amount of players needs to be between 2-4");
             }
             else
             {
-                for (int i = 0; i < amountOfPlayers; i++)
-                {
                     var createNewPlayer = new Player();
-                    this.Players.Add(createNewPlayer);
-                }
-                return this.Players;
+                    Players.Add(createNewPlayer);
+                    createNewPlayer.PlayerName = namnSpelare;
+                    createNewPlayer.PlayerColor = colors[color];
             }
         }
 
         public int CheckTurn()
         {
             PlayerTurn++;
-            if(PlayerTurn > Players.Count - 1)
+            if (PlayerTurn > Players.Count - 1)
             {
                 PlayerTurn = 0;
             }
@@ -51,7 +70,7 @@ namespace TheLudoGameEngine
         public bool CheckWinner(Player player)
         {
             var checkW = player.Tokens.Where(p => p.InGoal == true).ToList();
-            if(checkW.Count == 4)
+            if (checkW.Count == 4)
             {
                 this.Finished = true;
             }
