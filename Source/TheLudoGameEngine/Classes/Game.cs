@@ -34,9 +34,14 @@ namespace TheLudoGameEngine
             }
         }
 
-        public Player CheckTurn(int index)
+        public int CheckTurn()
         {
-            return this.Players[index];
+            PlayerTurn++;
+            if(PlayerTurn > Players.Count - 1)
+            {
+                PlayerTurn = 0;
+            }
+            return PlayerTurn;
         }
 
         //public static AutoSave()

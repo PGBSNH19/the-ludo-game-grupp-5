@@ -7,10 +7,7 @@ namespace TheLudoGameEngine
         public static int ThrowDie()
         {
             Random dieThrow = new Random();
-
-            int result = dieThrow.Next(1, 7);
-
-            return result;
+            return dieThrow.Next(1, 7);
         }
     }
 }
