@@ -19,31 +19,6 @@ namespace TheLudoGameEngine
             Players = new List<Player>();
         }
 
-        public void CreatePlayers(string namnSpelare, int color)
-        {
-            var createNewPlayer = new Player();
-            Players.Add(createNewPlayer);
-            createNewPlayer.PlayerName = namnSpelare;
-            createNewPlayer.PlayerColor = colors[color];
-            colors.RemoveAt(color);
-            for (int y = 0; y < 4; y++)
-            {
-                var createToken = new Token();
-                createToken.InNest = true;
-                createNewPlayer.Tokens.Add(createToken);
-            }
-        }
-
-        public int CheckTurn()
-        {
-            PlayerTurn++;
-            if (PlayerTurn > Players.Count - 1)
-            {
-                PlayerTurn = 0;
-            }
-            return PlayerTurn;
-        }
-
         //public static AutoSave()
         //{
         //}

@@ -6,6 +6,10 @@ namespace TheLudoGameApp
 {
     public class Program
     {
+        public static int antalSpelare = 0;
+
+        public static Engine firstGame = new Engine();
+
         public static void Main(string[] args)
         {
             CreateGame();
@@ -14,8 +18,7 @@ namespace TheLudoGameApp
         public static void CreateGame()
         {
             bool loop = true;
-            int antalSpelare = 0;
-            Game firstGame = new Game();
+
             while (loop)
             {
                 Console.WriteLine("Välj antal spelare? ");
@@ -42,6 +45,23 @@ namespace TheLudoGameApp
 
                 firstGame.CreatePlayers(namnSpelare, color);
             }
+            do
+            {
+                if (firstGame.Finished == true)
+                {
+                    loop = false;
+                }
+                for (int i = 0; i < antalSpelare; i++)
+                {
+                    Console.WriteLine($"Det är spelare {firstGame.Players[i]} tur");
+                }
+                loop = false;
+            } while (loop);
+        }
+
+        public static void StartGame()
+        {
+            //bool loop = true;
         }
 
         //public static void TestGame(Game testGame)
