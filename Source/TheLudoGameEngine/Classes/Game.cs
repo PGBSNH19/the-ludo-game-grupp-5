@@ -12,44 +12,25 @@ namespace TheLudoGameEngine
         public int PlayerTurn { get; set; }
         public List<Player> Players { get; set; }
 
+        public static List<string> colors = new List<string> { "röd", "blå", "grön", "gul" };
+
         public Game()
         {
             Players = new List<Player>();
         }
 
-        //    List<string> colors = new List<string> { "röd", "blå", "grön", "gul" };
-        //    Game testGame = new Game();
-
-        //        for (int i = 0; i< 4; i++)
-        //        {
-        //            var newPlayer = new Player();
-        //    newPlayer.PlayerName = $"Spelare {i}";
-        //            for(int y = 0; y< 4; y++)
-        //            {
-        //                var newToken = new Token();
-        //    newToken.InNest = true;
-        //                newPlayer.Tokens.Add(newToken);
-        //            }
-
-        //newPlayer.PlayerColor = colors[i];
-        //            testGame.Players.Add(newPlayer);
-        //        }
-
-        public void CreatePlayers(int antalSpelare, string namnSpelare, int color)
+        public void CreatePlayers(string namnSpelare, int color)
         {
-            List<string> colors = new List<string> { "röd", "blå", "grön", "gul" };
-
-            // lägg till namn färg och token
-            if (antalSpelare > 4 || antalSpelare < 2)
+            var createNewPlayer = new Player();
+            Players.Add(createNewPlayer);
+            createNewPlayer.PlayerName = namnSpelare;
+            createNewPlayer.PlayerColor = colors[color];
+            colors.RemoveAt(color);
+            for (int y = 0; y < 4; y++)
             {
-                throw new Exception("The amount of players needs to be between 2-4");
-            }
-            else
-            {
-                    var createNewPlayer = new Player();
-                    Players.Add(createNewPlayer);
-                    createNewPlayer.PlayerName = namnSpelare;
-                    createNewPlayer.PlayerColor = colors[color];
+                var createToken = new Token();
+                createToken.InNest = true;
+                createNewPlayer.Tokens.Add(createToken);
             }
         }
 
