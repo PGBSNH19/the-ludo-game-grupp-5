@@ -6,6 +6,7 @@
         public Player Player { get; set; }
         public int GameBoardPosition { get; set; }
         public string TokenColor { get; set; }
+        public int TokenNumber { get; set; }
         public bool InNest { get; set; }
         public bool InGoal { get; set; }
 

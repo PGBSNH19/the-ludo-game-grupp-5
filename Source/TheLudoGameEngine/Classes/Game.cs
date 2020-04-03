@@ -5,7 +5,7 @@ using System.Linq;
 namespace TheLudoGameEngine
 
 {
-    public class Game
+    public class Game 
     {
         public int GameID { get; set; }
         public bool Finished { get; set; }
@@ -23,10 +23,11 @@ namespace TheLudoGameEngine
             newPlayer.PlayerName = name;
             newPlayer.PlayerColor = Enum.GetName(typeof(Colors), color);
             
-            for(int i = 0; i < 1; i++)
+            for(int i = 1; i < 5; i++)
             {
                 var newToken = new Token();
                 newToken.InNest = true;
+                newToken.TokenNumber = i;
                 newToken.TokenColor = Enum.GetName(typeof(Colors), color);
                 newPlayer.Tokens.Add(newToken);
             }
@@ -89,12 +90,11 @@ namespace TheLudoGameEngine
         {
             game.Players[game.PlayerTurn].Tokens[0].InNest = false;
             game.Players[game.PlayerTurn].Tokens[0].MoveToken(die);
-            if(game.Players[game.PlayerTurn].Tokens[0].HasFinished() != true)
+            if (game.Players[game.PlayerTurn].Tokens[0].HasFinished() != true)
             {
                 game.CheckTurn();
             }
             game.CheckWinner(game.Players[game.PlayerTurn]);
-
 
         }
     }

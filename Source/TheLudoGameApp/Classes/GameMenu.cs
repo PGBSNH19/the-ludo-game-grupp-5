@@ -25,7 +25,7 @@ namespace TheLudoGameApp.Classes
             InGame(newGame);
         }
 
-        public static void InGame(Game game)
+        public  void InGame(Game game)
         {
 
             bool loop = false;
@@ -37,14 +37,15 @@ namespace TheLudoGameApp.Classes
                 Console.ReadKey();
                 
                 var die = Die.ThrowDie();
-                
-                Console.WriteLine($"The Die Showed {die}");
+
+                GameMessages.PrintDieResult(die);
                 
                 var moveableTokens = game.TokensToMove(game.Players[game.PlayerTurn], die);
                 
                 if (moveableTokens.Count > 0)
                 {
-                    Console.WriteLine("Your token left the nest");
+                    GameMessages.PrintTokenOptions(moveableTokens);
+                    Console.ReadKey();
                     game.RunMovement(game, die);
                     Console.ReadKey();
                 }
