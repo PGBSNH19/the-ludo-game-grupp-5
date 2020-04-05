@@ -7,6 +7,7 @@ namespace TheLudoGameApp.Classes
 {
     class GameMessages
     {
+        /*For the moment just standard gamemessages that shows all the data in realtime*/
         public static void PrintLoadGameList(List<Game> gamesToLoad)
         {
             for (int i = 0; i < gamesToLoad.Count; i++)

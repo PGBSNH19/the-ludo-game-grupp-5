@@ -8,8 +8,7 @@ namespace TheLudoGameEngine
 {
     public class Engine : Game
     {
-        private MyContext myContext = new MyContext();
-
+        MyContext myContext = new MyContext();
         //Simulates a diethrow
         public int ThrowDie()
         {
@@ -57,17 +56,12 @@ namespace TheLudoGameEngine
 
 
         //Returns a list of saved unfinished games
-        public List<Game> ShowPreviousGames()
+        public List<Game> LoadPreviousGames()
         {
 
             return myContext.Games.Include(g => g.Players).ThenInclude(p => p.Tokens).Where(g => g.Finished != true).ToList();
         }
 
-        //Load the selected game
-        public Game LoadPreviousGame(List<Game> prevGames, int gameID)
-        {
-            return prevGames.Where(s => s.GameID == gameID).FirstOrDefault();
-        }
 
         //Saves the game
         public void SaveGame(Game game)
@@ -77,25 +71,19 @@ namespace TheLudoGameEngine
             {
                 try
                 {
-                    myContext.Games.Update(game);
-                    myContext.SaveChanges();
+                    saveContext.Games.Update(game);
+                    saveContext.SaveChanges();
                 }
                 catch
                 {
-                    myContext.Games.Add(game);
-                    myContext.SaveChanges();
+                    saveContext.Games.Add(game);
+                    saveContext.SaveChanges();
                 }
             }
 
 
             Console.WriteLine("save");
         }
-        //AutoSaves the game
-        public void UpdateGame(Game game)
-        {
-
-            myContext.SaveChanges();
-            Console.WriteLine("save");
-        }
+       
     }
 }

@@ -12,7 +12,6 @@ namespace TheLudoGameApp.Classes
 
         public void NewGameMenu()
         {
-            List<string> playerNames = new List<string>();
             Console.WriteLine("How many players? ");
 
             int amountOfPlayers = int.Parse(Console.ReadLine());
@@ -28,11 +27,12 @@ namespace TheLudoGameApp.Classes
 
         public void LoadGameMenu()
         {
-            var loadGame = engine.ShowPreviousGames();
+            var loadGame = engine.LoadPreviousGames();
             GameMessages.PrintLoadGameList(loadGame);
             InGame(loadGame[int.Parse(Console.ReadLine())]);
         }
 
+        /*For the moment a gameflow prototype*/
         public void InGame(Game game)
         {
             bool loop = false;
@@ -59,7 +59,7 @@ namespace TheLudoGameApp.Classes
                 }
                 else
                 {
-                    Console.WriteLine("You need to throw 1 or 6 to leave the nest");
+                    Console.WriteLine("You dont have any movable tokens, press any key for next player");
                     Console.ReadKey();
                 }
 
