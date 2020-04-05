@@ -10,8 +10,7 @@ namespace TheLudoGameApp
 
         public static void Main(string[] args)
         {
-            GameMenu menu = new GameMenu();
-            menu.NewGameMenu();
+            MainMenu.Menu();
         }
 
     }
