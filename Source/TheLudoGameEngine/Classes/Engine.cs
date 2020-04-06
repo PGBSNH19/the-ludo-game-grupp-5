@@ -58,7 +58,6 @@ namespace TheLudoGameEngine
         //Returns a list of saved unfinished games
         public List<Game> LoadPreviousGames()
         {
-
             return myContext.Games.Include(g => g.Players).ThenInclude(p => p.Tokens).Where(g => g.Finished != true).ToList();
         }
 
@@ -66,7 +65,8 @@ namespace TheLudoGameEngine
         //Saves the game
         public void SaveGame(Game game)
         {
-            //game.LastSaved = DateTime.Now;
+            game.LastSaved = UpdateCurrentTime();
+
             using (var saveContext = new MyContext())
             {
                 try
@@ -80,9 +80,6 @@ namespace TheLudoGameEngine
                     saveContext.SaveChanges();
                 }
             }
-
-
-            Console.WriteLine("save");
         }
        
     }
