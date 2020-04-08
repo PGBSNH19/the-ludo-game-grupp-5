@@ -34,7 +34,7 @@ namespace TheLudoGameEngine
                 newToken.InNest = true;
                 newToken.TokenNumber = i;
                 newToken.TokenColor = Enum.GetName(typeof(Colors), color);
-                newToken.TokenEndOfLapPosition(newToken);
+                newToken.TokensStartPostion(newToken);
                 newPlayer.Tokens.Add(newToken);
             }
 

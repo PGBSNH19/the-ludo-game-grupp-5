@@ -21,14 +21,14 @@
                 currentToken.StepsCounter += dieResult;
                 if(currentToken.StepsCounter >= 40)
                 {
-                    currentToken.TokenEndOfLapPosition(currentToken);
+                    currentToken.TokensStartPostion(currentToken);
                 }
                 
             }
             else
             {
                 currentToken.StepsCounter = 45 - (even - 45);
-                currentToken.TokenEndOfLapPosition(currentToken);
+                currentToken.TokensStartPostion(currentToken);
             }
 
             currentToken.AtEndLap();
@@ -80,7 +80,7 @@
 
         
 
-        public void TokenEndOfLapPosition(Token setEnd)
+        public void TokensStartPostion(Token setEnd)
         {
             if (setEnd.TokenColor == "Red")
             {

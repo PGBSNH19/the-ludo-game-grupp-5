@@ -112,7 +112,7 @@ namespace TheLudoGameEngine
             if (tokenToKnockOut != null)
             {
                 tokenToKnockOut.InNest = true;
-                tokenToKnockOut.TokenEndOfLapPosition(tokenToKnockOut);
+                tokenToKnockOut.TokensStartPostion(tokenToKnockOut);
                 tokenToKnockOut.StepsCounter = 0;
                 Console.WriteLine($"{currentToken.TokenColor} {currentToken.TokenNumber} knocked out {tokenToKnockOut.TokenColor} {tokenToKnockOut.TokenNumber}");
                 Console.ReadKey();
