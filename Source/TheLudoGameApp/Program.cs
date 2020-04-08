@@ -1,7 +1,4 @@
-﻿using TheLudoGameEngine;
-using System;
-using System.Collections.Generic;
-using TheLudoGameApp.Classes;
+﻿using TheLudoGameApp.Classes;
 
 namespace TheLudoGameApp
 {
@@ -10,6 +7,7 @@ namespace TheLudoGameApp
 
         public static void Main(string[] args)
         {
+
             MainMenu.Menu();
         }
 

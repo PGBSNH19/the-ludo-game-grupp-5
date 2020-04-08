@@ -9,37 +9,95 @@
         public int TokenNumber { get; set; }
         public bool InNest { get; set; }
         public bool InGoal { get; set; }
+        public int StepsCounter { get; set; }
+        public bool InEndLap { get; set; }
 
-        public int MoveToken(int dieResult)
+        public void CountTokenPosition(Token currentToken, int dieResult)
         {
-            for (int i = 1; i <= dieResult; i++)
+            int even = currentToken.StepsCounter + dieResult;
+
+            if (even <= 45)
             {
-                if (this.GameBoardPosition >= 45)
+                currentToken.StepsCounter += dieResult;
+                if(currentToken.StepsCounter >= 40)
                 {
-                    for (int y = i; y <= dieResult; y++)
-                    {
-                        i++;
-                        this.GameBoardPosition--;
-                    }
+                    currentToken.TokenEndOfLapPosition(currentToken);
+                }
+                
+            }
+            else
+            {
+                currentToken.StepsCounter = 45 - (even - 45);
+                currentToken.TokenEndOfLapPosition(currentToken);
+            }
+
+            currentToken.AtEndLap();
+        }
+
+        public bool AtEndLap()
+        {
+            if (StepsCounter > 40)
+            {
+                return InEndLap = true;
+            }
+            else
+            {
+                return InEndLap = false;
+            }
+
+        }
+
+        public void CountGameBordPosition(int dieResult)
+        {
+
+            if(InEndLap != true && StepsCounter < 40)
+            {
+
+                int lap = GameBoardPosition + dieResult;
+                if (lap <= 40)
+                {
+                    GameBoardPosition += dieResult;
                 }
                 else
                 {
-                    this.GameBoardPosition++;
+                    GameBoardPosition = lap - 40;
                 }
             }
-            return this.GameBoardPosition;
+           
         }
 
-        public bool HasFinished()
-        {
-            this.InGoal = false;
-
-            if (this.GameBoardPosition == 45)
+        public bool TokenInGoal()
+        {      
+            if (StepsCounter == 45)
             {
-                this.InGoal = true;
+                return InGoal = true;
             }
+            else
+            {
+                return InGoal = false;
+            }
+        }
 
-            return this.InGoal;
+        
+
+        public void TokenEndOfLapPosition(Token setEnd)
+        {
+            if (setEnd.TokenColor == "Red")
+            {
+                setEnd.GameBoardPosition = 40;
+            }
+            else if (setEnd.TokenColor == "Blue")
+            {
+                setEnd.GameBoardPosition = 10;
+            }
+            else if (setEnd.TokenColor == "Green")
+            {
+                setEnd.GameBoardPosition = 20;
+            }
+            else if (setEnd.TokenColor == "Yellow")
+            {
+                setEnd.GameBoardPosition = 30;
+            }
         }
     }
 }

@@ -13,35 +13,35 @@ namespace UnitTestGameEngineMethods
         public void Token_MovmeToken_Forward_False()
         {
             var testToken = new Token();
-            testToken.GameBoardPosition = 2;
-            testToken.GameBoardPosition = testToken.MoveToken(5);
-            Assert.IsFalse(testToken.GameBoardPosition == 8);
+            testToken.StepsCounter = 2;
+            testToken.CountTokenPosition(testToken, 5);
+            Assert.IsFalse(testToken.StepsCounter == 8);
         }
         [TestMethod]
         public void Token_MovmeToken_Forward_True()
         {
             var testToken = new Token();
-            testToken.GameBoardPosition = 2;
-            testToken.GameBoardPosition = testToken.MoveToken(5);
-            Assert.IsTrue(testToken.GameBoardPosition == 7);
+            testToken.StepsCounter = 2;
+            testToken.CountTokenPosition(testToken, 5);
+            Assert.IsTrue(testToken.StepsCounter == 7);
         }
 
         [TestMethod]
         public void Token_MoveToken_BackwardsFromGoal_False()
         {
-            var test = new Token();
-            test.GameBoardPosition = 44;
-            test.GameBoardPosition = test.MoveToken(5);
-            Assert.IsFalse(test.GameBoardPosition == 42);
+            var testToken = new Token();
+            testToken.StepsCounter = 44;
+            testToken.CountTokenPosition(testToken, 5);
+            Assert.IsFalse(testToken.StepsCounter == 42);
         }
 
         [TestMethod]
         public void Token_MoveToken_BackwardsFromGoal_True()
         {
-            var test = new Token();
-            test.GameBoardPosition = 44;
-            test.GameBoardPosition = test.MoveToken(5);
-            Assert.IsFalse(test.GameBoardPosition == 41);
+            var testToken = new Token();
+            testToken.StepsCounter = 44;
+            testToken.CountTokenPosition(testToken, 5);
+            Assert.IsFalse(testToken.StepsCounter == 41);
         }
 
         [TestMethod]
@@ -63,7 +63,7 @@ namespace UnitTestGameEngineMethods
                     testWinner.Tokens.Add(testToken);
                 }                
             }
-            testGame.Finished = testGame.CheckWinner(testWinner);
+            testGame.Finished = testGame.CheckForWinner(testWinner);
             Assert.IsTrue(testGame.Finished == true);
         }
 

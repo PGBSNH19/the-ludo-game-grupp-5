@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+
 
 namespace TheLudoGameApp.Classes
 {
@@ -30,11 +29,11 @@ namespace TheLudoGameApp.Classes
                 switch (option)
                 {
                     case "0":
-                        menu.NewGameMenu();
+                        menu.MenuNewGame();
                         break;
 
                     case "1":
-                        menu.LoadGameMenu();
+                        menu.MenuLoadGame();
                         mainMenu = false;
                         break;
 
@@ -60,5 +59,5 @@ namespace TheLudoGameApp.Classes
 ");
         }
     }
-}
 
+}

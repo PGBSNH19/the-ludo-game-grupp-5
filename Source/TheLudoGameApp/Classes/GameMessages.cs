@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using TheLudoGameEngine;
 
 namespace TheLudoGameApp.Classes
 {
     class GameMessages
     {
-        /*For the moment just standard gamemessages that shows all the data in realtime*/
         public static void PrintLoadGameList(List<Game> gamesToLoad)
         {
             for (int i = 0; i < gamesToLoad.Count; i++)
@@ -21,7 +19,7 @@ namespace TheLudoGameApp.Classes
         {
             foreach (var player in players)
             {
-                Console.WriteLine($"{player.PlayerColor} {player.PlayerName}");
+                Console.WriteLine($"{player.PlayerColor} {player.PlayerName}\n");
                 foreach (var token in player.Tokens)
                 {
                     if (token.InNest == true)
@@ -30,13 +28,14 @@ namespace TheLudoGameApp.Classes
                     }
                     else if (token.InNest == false && token.InGoal == false)
                     {
-                        Console.WriteLine($"{token.TokenColor} {token.TokenNumber}: On space {token.GameBoardPosition}");
+                        Console.WriteLine($"{token.TokenColor} {token.TokenNumber}: On space {token.GameBoardPosition} Steps: {token.StepsCounter}");
                     }
                     else
                     {
                         Console.WriteLine($"{token.TokenColor} {token.TokenNumber}: In Goal");
                     }
                 }
+                Console.WriteLine();
             }
         }
 
@@ -50,7 +49,10 @@ namespace TheLudoGameApp.Classes
             Console.WriteLine($"{player.PlayerName} turn");
             Console.WriteLine($"Press any button to throw the die");
         }
-
+        public static void PrintKnockOut()
+        {
+            Console.WriteLine("Not yet implemented");
+        }
         public static void PrintWinner(Player player)
         {
             Console.WriteLine($"The winner is {player.PlayerName}");
@@ -72,7 +74,6 @@ namespace TheLudoGameApp.Classes
                 }
 
             }
-
         }
     }
 }

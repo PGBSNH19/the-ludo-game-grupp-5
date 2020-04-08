@@ -2,13 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace TheLudoGameEngine
 {
     public class Engine : Game
     {
-        MyContext myContext = new MyContext();
+        private LudoContext myContext = new LudoContext();
+
         //Simulates a diethrow
         public int ThrowDie()
         {
@@ -34,20 +34,29 @@ namespace TheLudoGameEngine
 
 
         //Runs the token movment action and calculate the tokens new position/state
-        public void RunMovementAction(Token currentToken, int die)
+        public void RunMovementAction(Token currentToken, int die, Game game, Player currentPlayer)
         {
             if (currentToken.InNest != false)
             {
                 currentToken.InNest = false;
             }
-            currentToken.MoveToken(die);
-            currentToken.HasFinished();
+            
+            currentToken.CountTokenPosition(currentToken, die);
+            currentToken.AtEndLap();
+
+            if(currentToken.InEndLap != true)
+            {
+                currentToken.CountGameBordPosition(die);
+                KnockOutAnotherToken(currentToken, game);
+            }
+
+            currentToken.TokenInGoal();
         }
 
         //Runs a gameupdate as calculate which playerturn is next, count rounds and control if the currentplayer have won the game
         public void RunGameUpdate(Game game, Player currentPlayer)
         {
-            game.CheckWinner(currentPlayer);
+            game.CheckForWinner(currentPlayer);
             if (game.Finished != true)
             {
                 game.UpdateTurnAndRound();
@@ -56,31 +65,61 @@ namespace TheLudoGameEngine
 
 
         //Returns a list of saved unfinished games
-        public List<Game> LoadPreviousGames()
+        public List<Game> ShowPreviousGames()
         {
+
             return myContext.Games.Include(g => g.Players).ThenInclude(p => p.Tokens).Where(g => g.Finished != true).ToList();
         }
 
+        //Load the selected game
+        public Game LoadPreviousGame(List<Game> prevGames, int gameID)
+        {
+            return prevGames.Where(s => s.GameID == gameID).FirstOrDefault();
+        }
 
         //Saves the game
         public void SaveGame(Game game)
         {
-            game.LastSaved = UpdateCurrentTime();
-
-            using (var saveContext = new MyContext())
+            //game.LastSaved = DateTime.Now;
+            using (var saveContext = new LudoContext())
             {
                 try
                 {
-                    saveContext.Games.Update(game);
-                    saveContext.SaveChanges();
+                    myContext.Games.Update(game);
+                    myContext.SaveChanges();
                 }
                 catch
                 {
-                    saveContext.Games.Add(game);
-                    saveContext.SaveChanges();
+                    myContext.Games.Add(game);
+                    myContext.SaveChanges();
                 }
             }
+
+
+            Console.WriteLine("save");
         }
        
+
+        public void KnockOutAnotherToken(Token currentToken, Game game)
+        {
+            var tokenToKnockOut = game.Players.SelectMany(p => p.Tokens).Distinct().
+                Where(s => s.GameBoardPosition == currentToken.GameBoardPosition 
+                && s.TokenColor != currentToken.TokenColor 
+                && s.InGoal == false 
+                && s.InNest == false 
+                && s.InEndLap == false).FirstOrDefault();
+
+            if (tokenToKnockOut != null)
+            {
+                tokenToKnockOut.InNest = true;
+                tokenToKnockOut.TokenEndOfLapPosition(tokenToKnockOut);
+                tokenToKnockOut.StepsCounter = 0;
+                Console.WriteLine($"{currentToken.TokenColor} {currentToken.TokenNumber} knocked out {tokenToKnockOut.TokenColor} {tokenToKnockOut.TokenNumber}");
+                Console.ReadKey();
+            }
+
+        }
+
+
     }
 }

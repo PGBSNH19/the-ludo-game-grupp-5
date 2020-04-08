@@ -1,43 +1,58 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using TheLudoGameEngine;
 
 namespace TheLudoGameApp.Classes
 {
-    class GameMenu
+    internal class GameMenu
     {
         public Game newGame = new Game();
         public Engine engine = new Engine();
+        private List<string> playerNames = new List<string>();
 
-        public void NewGameMenu()
+        public void MenuNewGame()
         {
-            Console.WriteLine("How many players? ");
-
-            int amountOfPlayers = int.Parse(Console.ReadLine());
-
-            for (int i = 0; i < amountOfPlayers; i++)
+            bool menu = true;
+            while (menu)
             {
-                Console.WriteLine($"Player {i + 1} name: ");
-                newGame.CreatePlayers(Console.ReadLine(), i);
+                Console.WriteLine("How many players min 2 and max 4? ");
+                string amountOfPlayers = Console.ReadLine();
+                if (int.TryParse(amountOfPlayers, out int number))
+                {
+                    if (number >= 2 && number <= 4)
+                    {
+                        for (int i = 0; i < number; i++)
+                        {
+                            Console.WriteLine($"Player {i + 1} name: ");
+                            newGame.CreatePlayer(Console.ReadLine(), i);
+                        }
+                        menu = false;
+                    }
+                    else
+                    {
+                        Console.WriteLine("You have entred wrog value");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine($"{amountOfPlayers} is not a number");
+                }
             }
 
-            InGame(newGame);
+            RunGame(newGame);
         }
 
-        public void LoadGameMenu()
+        public void MenuLoadGame()
         {
-            var loadGame = engine.LoadPreviousGames();
+            var loadGame = engine.ShowPreviousGames();
             GameMessages.PrintLoadGameList(loadGame);
-            InGame(loadGame[int.Parse(Console.ReadLine())]);
+            RunGame(loadGame[int.Parse(Console.ReadLine())]);
         }
 
-        /*For the moment a gameflow prototype*/
-        public void InGame(Game game)
+        public void RunGame(Game game)
         {
-            bool loop = false;
-            int testVal = 0;
-            while (!loop)
+            bool gameFinished = false;
+            while (!gameFinished)
             {
                 Console.Clear();
                 GameMessages.PrintCurrentStatus(game.Players);
@@ -53,23 +68,38 @@ namespace TheLudoGameApp.Classes
                 if (moveableTokens.Count > 0)
                 {
                     GameMessages.PrintTokenOptions(moveableTokens);
-                    testVal = int.Parse(Console.ReadLine());
-                    var testToken = engine.ChooseToken(game.Players[game.PlayerTurn].Tokens, moveableTokens[testVal]);
-                    engine.RunMovementAction(testToken, die);
+                    
+                    while (!gameFinished)
+                    {
+                        try 
+                        {
+                            int val = int.Parse(Console.ReadLine());
+                            var testToken = engine.ChooseToken(game.Players[game.PlayerTurn].Tokens, moveableTokens[val]);
+                            engine.RunMovementAction(testToken, die, game, game.Players[game.PlayerTurn]);
+                            gameFinished = true;
+                        }
+                        catch
+                        {
+                            Console.WriteLine("Try again");
+                        }
+                    }
                 }
                 else
                 {
-                    Console.WriteLine("You dont have any movable tokens, press any key for next player");
+                    Console.WriteLine("You need to throw 1 or 6 to leave the nest");
                     Console.ReadKey();
                 }
-
-                engine.RunGameUpdate(game, game.Players[game.PlayerTurn]);
-                engine.SaveGame(game);
-                loop = game.Finished;
+                if(die != 6)
+                {
+                    engine.RunGameUpdate(game, game.Players[game.PlayerTurn]);
+                }
+                
+                gameFinished = game.Finished;
             }
             Console.Clear();
             GameMessages.PrintCurrentStatus(game.Players);
             GameMessages.PrintWinner(game.Players[game.PlayerTurn]);
+            Console.ReadKey();
         }
     }
 }
