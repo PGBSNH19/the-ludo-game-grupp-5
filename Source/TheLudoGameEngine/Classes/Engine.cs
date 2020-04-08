@@ -41,7 +41,7 @@ namespace TheLudoGameEngine
                 currentToken.InNest = false;
             }
             
-            currentToken.CountTokenPosition(currentToken, die);
+            currentToken.CountTokenSteps(currentToken, die);
             currentToken.AtEndLap();
 
             if(currentToken.InEndLap != true)
@@ -102,7 +102,7 @@ namespace TheLudoGameEngine
 
         public void KnockOutAnotherToken(Token currentToken, Game game)
         {
-            var tokenToKnockOut = game.Players.SelectMany(t => t.Tokens).Distinct().Except(game.Players[game.PlayerTurn].Tokens).
+                var tokenToKnockOut = game.Players.SelectMany(t => t.Tokens).Distinct().Except(game.Players[game.PlayerTurn].Tokens).
                 Where(t => t.GameBoardPosition == currentToken.GameBoardPosition 
                 && t.InGoal == false 
                 && t.InNest == false 

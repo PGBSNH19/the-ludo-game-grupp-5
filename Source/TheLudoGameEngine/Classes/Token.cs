@@ -12,7 +12,7 @@
         public int StepsCounter { get; set; }
         public bool InEndLap { get; set; }
 
-        public void CountTokenPosition(Token currentToken, int dieResult)
+        public void CountTokenSteps(Token currentToken, int dieResult)
         {
             int even = currentToken.StepsCounter + dieResult;
 

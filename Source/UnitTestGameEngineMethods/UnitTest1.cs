@@ -14,7 +14,7 @@ namespace UnitTestGameEngineMethods
         {
             var testToken = new Token();
             testToken.StepsCounter = 2;
-            testToken.CountTokenPosition(testToken, 5);
+            testToken.CountTokenSteps(testToken, 5);
             Assert.IsFalse(testToken.StepsCounter == 8);
         }
         [TestMethod]
@@ -22,7 +22,7 @@ namespace UnitTestGameEngineMethods
         {
             var testToken = new Token();
             testToken.StepsCounter = 2;
-            testToken.CountTokenPosition(testToken, 5);
+            testToken.CountTokenSteps(testToken, 5);
             Assert.IsTrue(testToken.StepsCounter == 7);
         }
 
@@ -31,7 +31,7 @@ namespace UnitTestGameEngineMethods
         {
             var testToken = new Token();
             testToken.StepsCounter = 44;
-            testToken.CountTokenPosition(testToken, 5);
+            testToken.CountTokenSteps(testToken, 5);
             Assert.IsFalse(testToken.StepsCounter == 42);
         }
 
@@ -40,7 +40,7 @@ namespace UnitTestGameEngineMethods
         {
             var testToken = new Token();
             testToken.StepsCounter = 44;
-            testToken.CountTokenPosition(testToken, 5);
+            testToken.CountTokenSteps(testToken, 5);
             Assert.IsFalse(testToken.StepsCounter == 41);
         }
 
