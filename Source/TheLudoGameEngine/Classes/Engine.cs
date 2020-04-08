@@ -29,7 +29,7 @@ namespace TheLudoGameEngine
 
         public Token ChooseToken(List<Token> tokensToPlay, Token tokenID)
         {
-            return tokensToPlay.Where(s => s == tokenID).FirstOrDefault();
+            return tokensToPlay.Where(t => t == tokenID).FirstOrDefault();
         }
 
 
@@ -74,7 +74,7 @@ namespace TheLudoGameEngine
         //Load the selected game
         public Game LoadPreviousGame(List<Game> prevGames, int gameID)
         {
-            return prevGames.Where(s => s.GameID == gameID).FirstOrDefault();
+            return prevGames.Where(g => g.GameID == gameID).FirstOrDefault();
         }
 
         //Saves the game
@@ -102,12 +102,11 @@ namespace TheLudoGameEngine
 
         public void KnockOutAnotherToken(Token currentToken, Game game)
         {
-            var tokenToKnockOut = game.Players.SelectMany(p => p.Tokens).Distinct().
-                Where(s => s.GameBoardPosition == currentToken.GameBoardPosition 
-                && s.TokenColor != currentToken.TokenColor 
-                && s.InGoal == false 
-                && s.InNest == false 
-                && s.InEndLap == false).FirstOrDefault();
+            var tokenToKnockOut = game.Players.SelectMany(t => t.Tokens).Distinct().Except(game.Players[game.PlayerTurn].Tokens).
+                Where(t => t.GameBoardPosition == currentToken.GameBoardPosition 
+                && t.InGoal == false 
+                && t.InNest == false 
+                && t.InEndLap == false).FirstOrDefault();
 
             if (tokenToKnockOut != null)
             {
