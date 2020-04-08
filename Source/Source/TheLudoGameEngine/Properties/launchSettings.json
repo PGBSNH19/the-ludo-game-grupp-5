@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "TheLudoGameEngine": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "Key": "Value",
+        "environmentName": "dev"
+      }
+    }
+  }
+}
