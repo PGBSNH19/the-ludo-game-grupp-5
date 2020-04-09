@@ -7,6 +7,22 @@ namespace TheLudoGameXTest
     public class UnitTest1
     {
         [Fact]
+        public void Token_GameBoardPosition()
+        {
+            //Arrange
+            var testToken = new Token();
+
+            //Act
+            testToken.TokenColor = "Yellow";
+            testToken.TokensStartPostion(testToken);
+            testToken.CountTokenSteps(testToken, 6);
+            testToken.CountGameBordPosition(6);
+
+            //Assert
+            Assert.Equal(6, testToken.StepsCounter);
+            Assert.Equal(36, testToken.GameBoardPosition);
+        }
+        [Fact]
         public void Token_MovmeToken_FromPostion2And5Forward_False()
         {
             Token testToken = new Token();
