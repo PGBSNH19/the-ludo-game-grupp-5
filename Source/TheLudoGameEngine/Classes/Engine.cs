@@ -22,12 +22,10 @@ namespace TheLudoGameEngine
           Don't return token if the token are in goal.
        */
         public List<Token> TokensToMove(Player currentPlayer, int dieResult)
-        {
-            var moveableTokens= currentPlayer.Tokens.Where(t => (t.InGoal == false && t.InNest == false) ||
+        {           
+            return currentPlayer.Tokens.Where(t => (t.InGoal == false && t.InNest == false) ||
                                              ((dieResult == 1 || dieResult == 6) && t.InNest == true
                                              && t.InGoal == false)).ToList();
-            
-            return null;
         }
 
 
@@ -114,8 +112,8 @@ namespace TheLudoGameEngine
                 tokenToKnockOut.InNest = true;
                 tokenToKnockOut.TokensStartPostion(tokenToKnockOut);
                 tokenToKnockOut.StepsCounter = 0;
-                Console.WriteLine($"{currentToken.TokenColor} {currentToken.TokenNumber} knocked out {tokenToKnockOut.TokenColor} {tokenToKnockOut.TokenNumber}");
-                Console.ReadKey();
+                //Console.WriteLine($"{currentToken.TokenColor} {currentToken.TokenNumber} knocked out {tokenToKnockOut.TokenColor} {tokenToKnockOut.TokenNumber}");
+                //Console.ReadKey();
             }
 
         }

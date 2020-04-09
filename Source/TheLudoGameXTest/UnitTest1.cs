@@ -6,6 +6,24 @@ namespace TheLudoGameXTest
 {
     public class UnitTest1
     {
+        [Fact]
+        public void KnockOutAnotherToken_KnockoutOtherColorInSamePostion()
+        {
+            Game game = new Game();
+            Engine engine = new Engine();
+
+            game.CreatePlayer("Andre", 0);
+            game.Players[0].Tokens[1].GameBoardPosition = 16;
+            game.Players[0].Tokens[1].InNest = false;
+
+            game.CreatePlayer("Andre", 1);
+            game.Players[1].Tokens[1].GameBoardPosition = 16;
+            game.Players[1].Tokens[1].InNest = false;
+
+            engine.KnockOutAnotherToken(game.Players[0].Tokens[1], game);
+
+            Assert.True(game.Players[1].Tokens[1].InNest);
+        }
 
         [Fact]
         public void Token_MoveFromStep43AndForward2_InGoal()
