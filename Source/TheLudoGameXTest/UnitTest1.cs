@@ -25,28 +25,29 @@ namespace TheLudoGameXTest
         }
 
         [Fact]
-        public void Token_MoveToken_BackwardsFromGoal_False()
+        public void MoveToken_FromPostion44_ToPosition42()
         {
-            var testToken = new Token();
+            Token testToken = new Token();
             testToken.StepsCounter = 44;
+
             testToken.CountTokenSteps(testToken, 5);
-            Assert.IsFalse(testToken.StepsCounter == 42);
+            Assert.Equal(42, testToken.StepsCounter);
         }
 
         [Fact]
         public void Token_MoveToken_BackwardsFromGoal_True()
         {
-            var testToken = new Token();
+            Token testToken = new Token();
             testToken.StepsCounter = 44;
             testToken.CountTokenSteps(testToken, 5);
-            Assert.IsFalse(testToken.StepsCounter == 41);
+            Assert.Equal(41, testToken.StepsCounter);
         }
 
         [Fact]
         public void Game_CheckWinner_Returns_False()
         {
-            var testGame = new Game();
-            var testWinner = new Player();
+            Game testGame = new Game();
+            Player testWinner = new Player();
             for (int i = 0; i < 4; i++)
             {
                 var testToken = new Token();
@@ -62,8 +63,7 @@ namespace TheLudoGameXTest
                 }
             }
             testGame.Finished = testGame.CheckForWinner(testWinner);
-            Assert.IsTrue(testGame.Finished == true);
+            Assert.True(testGame.Finished);
         }
     }
-}
 }
