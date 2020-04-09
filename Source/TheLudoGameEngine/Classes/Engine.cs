@@ -24,11 +24,9 @@ namespace TheLudoGameEngine
 
         public List<Token> TokensToMove(Player currentPlayer, int dieResult)
         {
-            var moveableTokens = currentPlayer.Tokens.Where(t => (t.InGoal == false && t.InNest == false) ||
-                                              ((dieResult == 1 || dieResult == 6) && t.InNest == true
-                                              && t.InGoal == false)).ToList();
-
-            return null;
+            return currentPlayer.Tokens.Where(t => (t.InGoal == false && t.InNest == false) ||
+                                             ((dieResult == 1 || dieResult == 6) && t.InNest == true
+                                             && t.InGoal == false)).ToList();
         }
 
         public Token ChooseToken(List<Token> tokensToPlay, Token tokenID)
