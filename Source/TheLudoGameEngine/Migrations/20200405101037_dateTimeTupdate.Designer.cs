@@ -9,7 +9,7 @@ using TheLudoGameEngine;
 
 namespace TheLudoGameEngine.Migrations
 {
-    [DbContext(typeof(MyContext))]
+    [DbContext(typeof(LudoContext))]
     [Migration("20200405101037_dateTimeTupdate")]
     partial class dateTimeTupdate
     {
