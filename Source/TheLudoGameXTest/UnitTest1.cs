@@ -7,21 +7,21 @@ namespace TheLudoGameXTest
     public class UnitTest1
     {
         [Fact]
-        public void Token_MovmeToken_Forward_False()
+        public void Token_MovmeToken_FromPostion2And5Forward_False()
         {
             Token testToken = new Token();
             testToken.StepsCounter = 2;
             testToken.CountTokenSteps(testToken, 5);
-            Assert.IsFalse(testToken.StepsCounter == 8);
+            Assert.Equal(8, testToken.StepsCounter);
         }
 
         [Fact]
-        public void Token_MovmeToken_Forward_True()
+        public void Token_MovmeToken_FromPosition2And5Forward_Position7()
         {
             var testToken = new Token();
             testToken.StepsCounter = 2;
             testToken.CountTokenSteps(testToken, 5);
-            Assert.IsTrue(testToken.StepsCounter == 7);
+            Assert.Equal(7, testToken.StepsCounter);
         }
 
         [Fact]
