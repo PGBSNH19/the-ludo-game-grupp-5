@@ -8,7 +8,7 @@ using TheLudoGameEngine;
 
 namespace TheLudoGameEngine.Migrations
 {
-    [DbContext(typeof(MyContext))]
+    [DbContext(typeof(LudoContext))]
     [Migration("20200401185413_test")]
     partial class test
     {

@@ -18,12 +18,12 @@ namespace UnitTestGameEngineMethods
             Assert.IsFalse(testToken.StepsCounter == 8);
         }
         [TestMethod]
-        public void Token_MovmeToken_Forward_True()
+        public void Token_MovmeToken_FromPosition2To5Forward_Position7()
         {
             var testToken = new Token();
             testToken.StepsCounter = 2;
             testToken.CountTokenSteps(testToken, 5);
-            Assert.IsTrue(testToken.StepsCounter == 7);
+            Assert.AreEqual(7, testToken.StepsCounter);
         }
 
         [TestMethod]
@@ -32,7 +32,7 @@ namespace UnitTestGameEngineMethods
             var testToken = new Token();
             testToken.StepsCounter = 44;
             testToken.CountTokenSteps(testToken, 5);
-            Assert.IsFalse(testToken.StepsCounter == 42);
+            Assert.AreEqual(42, testToken.StepsCounter);
         }
 
         [TestMethod]
@@ -64,7 +64,7 @@ namespace UnitTestGameEngineMethods
                 }                
             }
             testGame.Finished = testGame.CheckForWinner(testWinner);
-            Assert.IsTrue(testGame.Finished == true);
+            Assert.IsTrue(testGame.Finished);
         }
 
     }

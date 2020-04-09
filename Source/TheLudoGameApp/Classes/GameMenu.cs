@@ -38,7 +38,7 @@ namespace TheLudoGameApp.Classes
                     Console.WriteLine($"{amountOfPlayers} is not a number");
                 }
             }
-
+           
             RunGame(newGame);
         }
 
@@ -51,6 +51,7 @@ namespace TheLudoGameApp.Classes
 
         public void RunGame(Game game)
         {
+            
             bool gameFinished = false;
             while (!gameFinished)
             {

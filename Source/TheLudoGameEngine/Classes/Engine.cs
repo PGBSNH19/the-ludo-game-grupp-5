@@ -23,7 +23,11 @@ namespace TheLudoGameEngine
        */
         public List<Token> TokensToMove(Player currentPlayer, int dieResult)
         {
-            return currentPlayer.Tokens.Where(t => (t.InGoal == false && t.InNest == false) || ((dieResult == 1 || dieResult == 6) && t.InNest == true && t.InGoal == false)).ToList();
+            var moveableTokens= currentPlayer.Tokens.Where(t => (t.InGoal == false && t.InNest == false) ||
+                                             ((dieResult == 1 || dieResult == 6) && t.InNest == true
+                                             && t.InGoal == false)).ToList();
+            
+            return null;
         }
 
 
@@ -94,9 +98,6 @@ namespace TheLudoGameEngine
                     myContext.SaveChanges();
                 }
             }
-
-
-            Console.WriteLine("save");
         }
        
 
