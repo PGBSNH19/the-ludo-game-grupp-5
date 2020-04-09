@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using TheLudoGameEngine;
 using Xunit;
 
@@ -6,8 +7,29 @@ namespace TheLudoGameXTest
 {
     public class UnitTest1
     {
-        [Fact]
+        [Theory]
+        [InlineData(5)]
+        [InlineData(6)]
+        [InlineData(16)]
+        public void KnockOutAnotherToken_KnockoutOtherColorInSamePostion(int position)
+        {
+            Game game = new Game();
+            Engine engine = new Engine();
 
+            game.CreatePlayer("player1", 0);
+            game.Players[0].Tokens[0].GameBoardPosition = 16;
+            game.Players[0].Tokens[0].InNest = false;
+
+            game.CreatePlayer("player2", 1);
+            game.Players[1].Tokens[0].GameBoardPosition = position;
+            game.Players[1].Tokens[0].InNest = false;
+
+            engine.KnockOutAnotherToken(game.Players[0].Tokens[0], game);
+
+            Assert.True(game.Players[1].Tokens[0].InNest);
+        }
+
+        [Fact]
         public void Token_GameBoardPosition36And5Forward_GameBoardPosition1()
         {
             var testToken = new Token();
@@ -16,7 +38,7 @@ namespace TheLudoGameXTest
 
             Assert.Equal(1, testToken.GameBoardPosition);
         }
-        
+
         [Fact]
         public void YellowToken_GameBoardPosition30And6Forward_GameBoardPosition36()
         {
@@ -31,6 +53,7 @@ namespace TheLudoGameXTest
             //Assert
             Assert.Equal(36, testToken.GameBoardPosition);
         }
+
         [Fact]
         public void Token_MovmeToken_FromPostion2And5Forward_False()
         {
