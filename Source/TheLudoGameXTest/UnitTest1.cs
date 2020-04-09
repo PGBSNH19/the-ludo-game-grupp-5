@@ -79,7 +79,7 @@ namespace TheLudoGameXTest
         }
 
         [Fact]
-        public void MoveToken_FromPostion44_ToPosition42()
+        public void MoveToken_FromPostion44_ToPosition42_False()
         {
             Token testToken = new Token { StepsCounter = 44 };
             testToken.CountTokenSteps(testToken, 5);
@@ -95,25 +95,20 @@ namespace TheLudoGameXTest
         }
 
         [Fact]
-        public void Game_CheckWinner_Returns_False()
+        public void Game_CheckWinner_True()
         {
+            //Arrange
             Game testGame = new Game();
-            Player testWinner = new Player();
-            for (int i = 0; i < 4; i++)
-            {
-                var testToken = new Token();
-                if (i > 2)
-                {
-                    testToken.InGoal = false;
-                    testWinner.Tokens.Add(testToken);
-                }
-                else
-                {
-                    testToken.InGoal = true;
-                    testWinner.Tokens.Add(testToken);
-                }
-            }
-            testGame.Finished = testGame.CheckForWinner(testWinner);
+            testGame.CreatePlayer("Testname", 0);
+            testGame.Players[0].Tokens[0].InGoal = true;
+            testGame.Players[0].Tokens[1].InGoal = true;
+            testGame.Players[0].Tokens[2].InGoal = true;
+            testGame.Players[0].Tokens[3].InGoal = true;
+
+            //Act
+            testGame.CheckForWinner(testGame.Players[0]);
+            
+            //Assert
             Assert.True(testGame.Finished);
         }
     }
