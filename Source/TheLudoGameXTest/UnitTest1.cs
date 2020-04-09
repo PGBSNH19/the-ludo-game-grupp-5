@@ -7,7 +7,18 @@ namespace TheLudoGameXTest
     public class UnitTest1
     {
         [Fact]
-        public void Token_GameBoardPosition()
+
+        public void Token_GameBoardPosition36And5Forward_GameBoardPosition1()
+        {
+            var testToken = new Token();
+            testToken.GameBoardPosition = 36;
+            testToken.CountGameBordPosition(5);
+
+            Assert.Equal(1, testToken.GameBoardPosition);
+        }
+        
+        [Fact]
+        public void YellowToken_GameBoardPosition30And6Forward_GameBoardPosition36()
         {
             //Arrange
             var testToken = new Token();
@@ -15,11 +26,9 @@ namespace TheLudoGameXTest
             //Act
             testToken.TokenColor = "Yellow";
             testToken.TokensStartPostion(testToken);
-            testToken.CountTokenSteps(testToken, 6);
             testToken.CountGameBordPosition(6);
 
             //Assert
-            Assert.Equal(6, testToken.StepsCounter);
             Assert.Equal(36, testToken.GameBoardPosition);
         }
         [Fact]
