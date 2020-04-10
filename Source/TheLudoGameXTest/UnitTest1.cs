@@ -172,5 +172,35 @@ namespace TheLudoGameXTest
             testToken.TokenInGoal();
             Assert.False(testToken.InGoal);
         }
+
+        [Fact]
+        public void Game_UpdateTurn_0To1()
+        {
+            //Arrange
+            Game testGame = new Game();
+            testGame.CreatePlayer("player1", 1);
+            testGame.CreatePlayer("player2", 2);
+            testGame.PlayerTurn = 0;
+            //Act
+            testGame.UpdateTurnAndRound();
+
+            //Assert
+            Assert.Equal(1, testGame.PlayerTurn);
+        }
+        [Fact]
+        public void Game_UpdateRound_1To2()
+        {
+            //Arrange
+            Game testGame = new Game();
+            testGame.CreatePlayer("player1", 1);
+            testGame.CreatePlayer("player2", 2);
+            testGame.PlayerTurn = 1;
+            testGame.Round = 1;
+            //Act
+            testGame.UpdateTurnAndRound();
+
+            //Assert
+            Assert.Equal(2, testGame.Round);
+        }
     }
 }
