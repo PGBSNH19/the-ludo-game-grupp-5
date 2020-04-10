@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using TheLudoGameEngine;
 
 namespace TheLudoGameApp.Classes
@@ -38,7 +39,7 @@ namespace TheLudoGameApp.Classes
                     Console.WriteLine($"{amountOfPlayers} is not a number");
                 }
             }
-           
+
             RunGame(newGame);
         }
 
@@ -51,7 +52,6 @@ namespace TheLudoGameApp.Classes
 
         public void RunGame(Game game)
         {
-            
             bool gameFinished = false;
             while (!gameFinished)
             {
@@ -69,14 +69,20 @@ namespace TheLudoGameApp.Classes
                 if (moveableTokens.Count > 0)
                 {
                     GameMessages.PrintTokenOptions(moveableTokens);
-                    
+
                     while (!gameFinished)
                     {
-                        try 
+                        try
                         {
                             int val = int.Parse(Console.ReadLine());
                             var testToken = engine.ChooseToken(game.Players[game.PlayerTurn].Tokens, moveableTokens[val]);
                             engine.RunMovementAction(testToken, die, game, game.Players[game.PlayerTurn]);
+                            if (engine.tokenToKnockOut != null)
+                            {
+                                Console.WriteLine($"{testToken.TokenColor} {testToken.TokenNumber} knocked out {engine.tokenToKnockOut.TokenColor} {engine.tokenToKnockOut.TokenNumber}");
+
+                                Thread.Sleep(10000);
+                            }
                             gameFinished = true;
                         }
                         catch
@@ -90,11 +96,11 @@ namespace TheLudoGameApp.Classes
                     Console.WriteLine("You need to throw 1 or 6 to leave the nest");
                     Console.ReadKey();
                 }
-                if(die != 6)
+                if (die != 6)
                 {
                     engine.RunGameUpdate(game, game.Players[game.PlayerTurn]);
                 }
-                
+
                 gameFinished = game.Finished;
             }
             Console.Clear();

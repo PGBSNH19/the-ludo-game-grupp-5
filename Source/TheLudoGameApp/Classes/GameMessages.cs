@@ -4,7 +4,7 @@ using TheLudoGameEngine;
 
 namespace TheLudoGameApp.Classes
 {
-    class GameMessages
+    internal class GameMessages
     {
         public static void PrintLoadGameList(List<Game> gamesToLoad)
         {
@@ -49,10 +49,12 @@ namespace TheLudoGameApp.Classes
             Console.WriteLine($"{player.PlayerName} turn");
             Console.WriteLine($"Press any button to throw the die");
         }
+
         public static void PrintKnockOut()
         {
             Console.WriteLine("Not yet implemented");
         }
+
         public static void PrintWinner(Player player)
         {
             Console.WriteLine($"The winner is {player.PlayerName}");
@@ -60,7 +62,6 @@ namespace TheLudoGameApp.Classes
 
         public static void PrintTokenOptions(List<Token> tokens)
         {
-
             Console.WriteLine("Which token do you want to move?");
             for (int i = 0; i < tokens.Count; i++)
             {
@@ -72,7 +73,6 @@ namespace TheLudoGameApp.Classes
                 {
                     Console.WriteLine($"[{i}] Move token {tokens[i].TokenColor} {tokens[i].TokenNumber}");
                 }
-
             }
         }
     }

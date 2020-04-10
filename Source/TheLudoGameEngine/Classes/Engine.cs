@@ -2,12 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 
 namespace TheLudoGameEngine
 {
     public class Engine : Game
     {
         private LudoContext myContext = new LudoContext();
+        public Token tokenToKnockOut;
 
         //Simulates a diethrow
         public int ThrowDie()
@@ -97,7 +99,7 @@ namespace TheLudoGameEngine
 
         public void KnockOutAnotherToken(Token currentToken, Game game)
         {
-            var tokenToKnockOut = game.Players.SelectMany(t => t.Tokens).Distinct().Except(game.Players[game.PlayerTurn].Tokens).
+            tokenToKnockOut = game.Players.SelectMany(t => t.Tokens).Distinct().Except(game.Players[game.PlayerTurn].Tokens).
             Where(t => t.GameBoardPosition == currentToken.GameBoardPosition
             && t.InGoal == false
             && t.InNest == false
@@ -108,8 +110,6 @@ namespace TheLudoGameEngine
                 tokenToKnockOut.InNest = true;
                 tokenToKnockOut.TokensStartPostion(tokenToKnockOut);
                 tokenToKnockOut.StepsCounter = 0;
-                //Console.WriteLine($"{currentToken.TokenColor} {currentToken.TokenNumber} knocked out {tokenToKnockOut.TokenColor} {tokenToKnockOut.TokenNumber}");
-                //Console.ReadKey();
             }
         }
     }

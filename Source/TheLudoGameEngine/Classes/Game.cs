@@ -41,8 +41,7 @@ namespace TheLudoGameEngine
             Players.Add(newPlayer);
         }
 
-
-        enum Colors
+        private enum Colors
         {
             Red,
             Blue,
@@ -70,8 +69,5 @@ namespace TheLudoGameEngine
             }
             return Finished = false;
         }
-
-
-
     }
 }

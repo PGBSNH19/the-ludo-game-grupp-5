@@ -1,9 +1,8 @@
 ﻿using System;
 
-
 namespace TheLudoGameApp.Classes
 {
-    class MainMenu
+    internal class MainMenu
     {
         public static void Menu()
         {
@@ -20,7 +19,6 @@ namespace TheLudoGameApp.Classes
                 Console.WriteLine("[0] Create New Game");
                 Console.WriteLine("[1] Load Game");
                 Console.WriteLine("[2] Exit");
-
 
                 string option = Console.ReadLine();
 
@@ -41,14 +39,14 @@ namespace TheLudoGameApp.Classes
                         Console.WriteLine("Exit program");
                         mainMenu = false;
                         break;
-
                 }
             }
         }
+
         public static void Welcome()
         {
             Console.WriteLine(@"
-    
+
 ████████╗██╗░░██╗███████╗  ██╗░░░░░██╗░░░██╗██████╗░░█████╗░░██████╗░░█████╗░███╗░░░███╗███████╗
 ╚══██╔══╝██║░░██║██╔════╝  ██║░░░░░██║░░░██║██╔══██╗██╔══██╗██╔════╝░██╔══██╗████╗░████║██╔════╝
 ░░░██║░░░███████║█████╗░░  ██║░░░░░██║░░░██║██║░░██║██║░░██║██║░░██╗░███████║██╔████╔██║█████╗░░
@@ -59,5 +57,4 @@ namespace TheLudoGameApp.Classes
 ");
         }
     }
-
 }

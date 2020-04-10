@@ -19,11 +19,10 @@
             if (even <= 45)
             {
                 currentToken.StepsCounter += dieResult;
-                if(currentToken.StepsCounter >= 40)
+                if (currentToken.StepsCounter >= 40)
                 {
                     currentToken.TokensStartPostion(currentToken);
                 }
-                
             }
             else
             {
@@ -44,15 +43,12 @@
             {
                 return InEndLap = false;
             }
-
         }
 
         public void CountGameBordPosition(int dieResult)
         {
-
-            if(InEndLap != true && StepsCounter < 40)
+            if (InEndLap != true && StepsCounter < 40)
             {
-
                 int lap = GameBoardPosition + dieResult;
                 if (lap <= 40)
                 {
@@ -63,11 +59,10 @@
                     GameBoardPosition = lap - 40;
                 }
             }
-           
         }
 
         public bool TokenInGoal()
-        {      
+        {
             if (StepsCounter == 45)
             {
                 return InGoal = true;
@@ -77,8 +72,6 @@
                 return InGoal = false;
             }
         }
-
-        
 
         public void TokensStartPostion(Token setEnd)
         {

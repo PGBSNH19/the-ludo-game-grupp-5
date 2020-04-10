@@ -14,12 +14,10 @@ namespace TheLudoGameEngine
         public DbSet<Player> Players { get; set; }
         public DbSet<Token> Tokens { get; set; }
 
-        
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json");
-                
+
             var config = builder.Build();
             var defaultConnectionString = config.GetConnectionString("DefaultConnection");
             optionsBuilder.UseSqlServer(defaultConnectionString);
