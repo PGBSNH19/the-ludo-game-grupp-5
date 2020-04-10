@@ -1,5 +1,3 @@
-using System;
-using System.Linq;
 using TheLudoGameEngine;
 using Xunit;
 
@@ -131,6 +129,21 @@ namespace TheLudoGameXTest
 
             //Assert
             Assert.True(testGame.Finished);
+        }
+        [Fact]
+        public void Token_InGoal_True()
+        {
+            Token testToken = new Token { StepsCounter = 45 };
+            testToken.TokenInGoal();
+            Assert.True(testToken.InGoal);
+        }
+
+        [Fact]
+        public void Token_InGoal_False()
+        {
+            Token testToken = new Token { StepsCounter = 44 };
+            testToken.TokenInGoal();
+            Assert.False(testToken.InGoal);
         }
     }
 }
