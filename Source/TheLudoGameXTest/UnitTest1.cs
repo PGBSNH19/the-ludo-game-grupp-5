@@ -6,6 +6,38 @@ namespace TheLudoGameXTest
     public class UnitTest1
     {
         [Theory]
+        [InlineData(1)]
+        [InlineData(6)]
+        [InlineData(3)]
+        [InlineData(5)]
+        public void TokensToMove_HowManyTokenCanIMove(int dieNumber)
+        {
+            Game game = new Game();
+            game.CreatePlayer("Player1", 0);
+            game.Players[0].Tokens[0].GameBoardPosition = 0;
+            game.Players[0].Tokens[0].InNest = true;
+            game.Players[0].Tokens[0].InGoal = false;
+
+            game.Players[0].Tokens[1].GameBoardPosition = 10;
+            game.Players[0].Tokens[1].InNest = false;
+            game.Players[0].Tokens[1].InGoal = false;
+
+            game.Players[0].Tokens[2].GameBoardPosition = 16;
+            game.Players[0].Tokens[2].InNest = false;
+            game.Players[0].Tokens[2].InGoal = false;
+
+            game.Players[0].Tokens[3].GameBoardPosition = 19;
+            game.Players[0].Tokens[3].InNest = false;
+            game.Players[0].Tokens[3].InGoal = false;
+
+            Engine engine = new Engine();
+
+            var result = engine.TokensToMove(game.Players[0], dieNumber).Count;
+
+            Assert.Equal(4, result);
+        }
+
+        [Theory]
         [InlineData(5)]
         [InlineData(6)]
         [InlineData(16)]
@@ -46,17 +78,14 @@ namespace TheLudoGameXTest
             //Arrange
             var testToken = new Token { StepsCounter = 44 };
 
-
             //Act
             testToken.CountTokenSteps(testToken, 5);
             testToken.AtEndLap();
 
             Assert.True(testToken.InEndLap);
-
         }
 
         [Fact]
-
         public void Token_GameBoardPosition36And5ForwardIntoNewLap_GameBoardPosition1()
         {
             //Arrange
@@ -81,6 +110,7 @@ namespace TheLudoGameXTest
             //Assert
             Assert.Equal(36, testToken.GameBoardPosition);
         }
+
         [Fact]
         public void Token_MovmeToken_FromStep2And5ForwardToStep7_False()
         {
@@ -130,6 +160,7 @@ namespace TheLudoGameXTest
             //Assert
             Assert.True(testGame.Finished);
         }
+
         [Fact]
         public void Token_InGoal_True()
         {
