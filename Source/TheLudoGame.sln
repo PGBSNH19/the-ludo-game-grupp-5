@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheLudoGameApp", "TheLudoGa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheLudoGameXTest", "TheLudoGameXTest\TheLudoGameXTest.csproj", "{6B46CD89-2B34-4D32-B270-0F33A1BBAB7F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XUnitIntergrationTest", "XUnitIntergrationTest\XUnitIntergrationTest.csproj", "{D6353C07-4CE9-473D-9BDB-B5B32274FFFD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{6B46CD89-2B34-4D32-B270-0F33A1BBAB7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6B46CD89-2B34-4D32-B270-0F33A1BBAB7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6B46CD89-2B34-4D32-B270-0F33A1BBAB7F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6353C07-4CE9-473D-9BDB-B5B32274FFFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6353C07-4CE9-473D-9BDB-B5B32274FFFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6353C07-4CE9-473D-9BDB-B5B32274FFFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6353C07-4CE9-473D-9BDB-B5B32274FFFD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

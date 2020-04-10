@@ -48,14 +48,17 @@ namespace TheLudoGameXTest
             //Arrange
             var testToken = new Token { StepsCounter = 44 };
 
+
             //Act
             testToken.CountTokenSteps(testToken, 5);
             testToken.AtEndLap();
 
             Assert.True(testToken.InEndLap);
+
         }
 
         [Fact]
+
         public void Token_GameBoardPosition36And5ForwardIntoNewLap_GameBoardPosition1()
         {
             //Arrange
@@ -80,7 +83,6 @@ namespace TheLudoGameXTest
             //Assert
             Assert.Equal(36, testToken.GameBoardPosition);
         }
-
         [Fact]
         public void Token_MovmeToken_FromStep2And5ForwardToStep7_False()
         {
