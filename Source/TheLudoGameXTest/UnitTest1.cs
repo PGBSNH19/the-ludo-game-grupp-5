@@ -8,11 +8,11 @@ namespace TheLudoGameXTest
         [Theory]
         [InlineData(1)]
         [InlineData(6)]
-        [InlineData(3)]
-        [InlineData(5)]
         public void TokensToMove_HowManyTokenCanIMove(int dieNumber)
         {
             Game game = new Game();
+            Engine engine = new Engine();
+
             game.CreatePlayer("Player1", 0);
             game.Players[0].Tokens[0].GameBoardPosition = 0;
             game.Players[0].Tokens[0].InNest = true;
@@ -30,16 +30,12 @@ namespace TheLudoGameXTest
             game.Players[0].Tokens[3].InNest = false;
             game.Players[0].Tokens[3].InGoal = false;
 
-            Engine engine = new Engine();
-
             var result = engine.TokensToMove(game.Players[0], dieNumber).Count;
 
             Assert.Equal(4, result);
         }
 
         [Theory]
-        [InlineData(5)]
-        [InlineData(6)]
         [InlineData(16)]
         public void KnockOutAnotherToken_KnockoutOtherColorInSamePostion(int position)
         {
