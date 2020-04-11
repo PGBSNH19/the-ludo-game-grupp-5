@@ -47,15 +47,14 @@ namespace TheLudoGameEngine
             currentToken.CountTokenSteps(currentToken, die);
             currentToken.AtEndLap();
 
-            if (currentToken.InEndLap != true)
-            {
-                currentToken.CountGameBordPosition(die);
-                KnockOutAnotherToken(currentToken, game);
-            }
+            
+            currentToken.CountGameBordPosition(die);
+            KnockOutAnotherToken(currentToken, game);
+            
             currentToken.TokenInGoal();
             game.CheckForWinner(currentPlayer);
 
-            if(die != 6)
+            if(die != 6 && game.Finished == false)
             {
                 game.UpdateTurnAndRound();
             }
