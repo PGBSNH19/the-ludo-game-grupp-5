@@ -202,5 +202,34 @@ namespace TheLudoGameXTest
             //Assert
             Assert.Equal(2, testGame.Round);
         }
+
+        [Fact]
+        public void Game_PlayerTurnFrom2To0_GamePlayerTurn0()
+        {
+            Game testGame = new Game();
+            testGame.CreatePlayer("testplayer1", 1);
+            testGame.CreatePlayer("testplayer2", 2);
+            testGame.CreatePlayer("testplayer3", 3);
+
+            testGame.PlayerTurn = 2;
+            testGame.UpdateTurnAndRound();
+
+            Assert.Equal(0, testGame.PlayerTurn);
+        }
+
+        [Fact]
+        public void Game_UpdateGameRound4To5_GameRound5()
+        {
+            Game testGame = new Game();
+            testGame.CreatePlayer("testplayer1", 1);
+            testGame.CreatePlayer("testplayer2", 2);
+            testGame.CreatePlayer("testplayer3", 3);
+
+            testGame.PlayerTurn = 2;
+            testGame.Round = 4;
+
+            testGame.UpdateTurnAndRound();
+            Assert.Equal(5, testGame.Round);
+        }
     }
 }
