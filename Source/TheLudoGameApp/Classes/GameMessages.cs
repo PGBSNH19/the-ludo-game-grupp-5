@@ -26,9 +26,13 @@ namespace TheLudoGameApp.Classes
                     {
                         Console.WriteLine($"{token.TokenColor} {token.TokenNumber}: In nest");
                     }
-                    else if (token.InNest == false && token.InGoal == false)
+                    else if (token.InNest == false && token.InGoal == false && token.InEndLap == false)
                     {
                         Console.WriteLine($"{token.TokenColor} {token.TokenNumber}: On space {token.GameBoardPosition} Steps: {token.StepsCounter}");
+                    }
+                    else if (token.InEndLap == true && token.InGoal == false)
+                    {
+                        Console.WriteLine($"{token.TokenColor} {token.TokenNumber}: At goalline Steps: {token.StepsCounter}");
                     }
                     else
                     {

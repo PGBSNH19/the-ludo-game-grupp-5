@@ -22,6 +22,11 @@ namespace TheLudoGameEngine
             Round = 1;
         }
 
+        public Player GetVictoriousPlayer()
+        {
+            return Players.Where(p => p.Winner == true).FirstOrDefault();
+        }
+
         public void CreatePlayer(string name, int color)
         {
             var newPlayer = new Player();

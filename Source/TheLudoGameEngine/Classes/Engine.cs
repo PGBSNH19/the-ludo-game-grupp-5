@@ -52,18 +52,19 @@ namespace TheLudoGameEngine
                 currentToken.CountGameBordPosition(die);
                 KnockOutAnotherToken(currentToken, game);
             }
-
             currentToken.TokenInGoal();
-        }
-
-        //Runs a gameupdate as calculate which playerturn is next, count rounds and control if the currentplayer have won the game
-        public void RunGameUpdate(Game game, Player currentPlayer)
-        {
             game.CheckForWinner(currentPlayer);
-            if (game.Finished != true)
+
+            if(die != 6)
             {
                 game.UpdateTurnAndRound();
             }
+        }
+
+        //Run the method to update the games player turn and round if a player can't move any token
+        public void RunGameUpdate(Game game)
+        {
+           game.UpdateTurnAndRound();
         }
 
         //Returns a list of saved unfinished games

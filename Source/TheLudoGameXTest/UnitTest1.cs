@@ -37,7 +37,7 @@ namespace TheLudoGameXTest
 
         [Theory]
         [InlineData(16)]
-        public void KnockOutAnotherToken_KnockoutOtherColorInSamePostion(int position)
+        public void KnockOutAnotherToken_Player1TokenKnocksOutPlayer2Token_Player2TokenInNest(int position)
         {
             Game game = new Game();
             Engine engine = new Engine();

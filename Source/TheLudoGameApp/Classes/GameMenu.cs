@@ -31,7 +31,7 @@ namespace TheLudoGameApp.Classes
                     }
                     else
                     {
-                        Console.WriteLine("You have entred wrog value");
+                        Console.WriteLine("Invalid input, try again");
                     }
                 }
                 else
@@ -58,36 +58,38 @@ namespace TheLudoGameApp.Classes
                 Console.Clear();
                 GameMessages.PrintCurrentStatus(game.Players);
                 GameMessages.PrintPlayerTurn(game.Players[game.PlayerTurn]);
+                Console.WriteLine(game.PlayerTurn);
                 Console.ReadKey();
 
                 var die = engine.ThrowDie();
 
                 GameMessages.PrintDieResult(die);
 
-                var moveableTokens = engine.TokensToMove(game.Players[game.PlayerTurn], die);
+                var movableTokens = engine.TokensToMove(game.Players[game.PlayerTurn], die);
 
-                if (moveableTokens.Count > 0)
+                if (movableTokens.Count > 0)
                 {
-                    GameMessages.PrintTokenOptions(moveableTokens);
+                    GameMessages.PrintTokenOptions(movableTokens);
 
                     while (!gameFinished)
                     {
                         try
                         {
-                            int val = int.Parse(Console.ReadLine());
-                            var testToken = engine.ChooseToken(game.Players[game.PlayerTurn].Tokens, moveableTokens[val]);
-                            engine.RunMovementAction(testToken, die, game, game.Players[game.PlayerTurn]);
+                            int movableTokensIndex = int.Parse(Console.ReadLine());
+                            var tokenToMove = engine.ChooseToken(game.Players[game.PlayerTurn].Tokens, movableTokens[movableTokensIndex]);
+                            engine.RunMovementAction(tokenToMove, die, game, game.Players[game.PlayerTurn]);
                             if (engine.tokenToKnockOut != null)
                             {
-                                Console.WriteLine($"{testToken.TokenColor} {testToken.TokenNumber} knocked out {engine.tokenToKnockOut.TokenColor} {engine.tokenToKnockOut.TokenNumber}");
+                                Console.WriteLine($"{tokenToMove.TokenColor} {tokenToMove.TokenNumber} knocked out {engine.tokenToKnockOut.TokenColor} {engine.tokenToKnockOut.TokenNumber}");
 
-                                Thread.Sleep(10000);
+                                //Thread.Sleep(5000);
+                                Console.ReadKey();
                             }
                             gameFinished = true;
                         }
                         catch
                         {
-                            Console.WriteLine("Try again");
+                            Console.WriteLine("Invalid token, try again");
                         }
                     }
                 }
@@ -95,17 +97,14 @@ namespace TheLudoGameApp.Classes
                 {
                     Console.WriteLine("You need to throw 1 or 6 to leave the nest");
                     Console.ReadKey();
-                }
-                if (die != 6)
-                {
-                    engine.RunGameUpdate(game, game.Players[game.PlayerTurn]);
+                    engine.RunGameUpdate(game);
                 }
 
                 gameFinished = game.Finished;
             }
             Console.Clear();
             GameMessages.PrintCurrentStatus(game.Players);
-            GameMessages.PrintWinner(game.Players[game.PlayerTurn]);
+            GameMessages.PrintWinner(game.GetVictoriousPlayer());
             Console.ReadKey();
         }
     }
