@@ -26,20 +26,21 @@ namespace TheLudoGameEngine
 
         public List<Token> TokensToMove(Player currentPlayer, int dieResult)
         {
-            return currentPlayer.Tokens.Where(t => (t.InGoal == false && t.InNest == false) ||
-                                             ((dieResult == 1 || dieResult == 6) && t.InNest == true
-                                             && t.InGoal == false)).ToList();
+            return currentPlayer.Tokens.Where(t => (!t.InGoal && !t.InNest)
+                                             || ((dieResult == 1 || dieResult == 6)
+                                             && t.InNest
+                                             && !t.InGoal)).ToList();
         }
 
         public Token ChooseToken(List<Token> tokensToPlay, Token tokenID)
         {
-            return tokensToPlay.Where(t => t == tokenID).FirstOrDefault();
+            return tokensToPlay.FirstOrDefault(t => t == tokenID);
         }
 
         //Runs the token movment action and calculate the tokens new position/state
         public void RunMovementAction(Token currentToken, int die, Game game, Player currentPlayer)
         {
-            if (currentToken.InNest != false)
+            if (currentToken.InNest)
             {
                 currentToken.InNest = false;
             }
@@ -47,14 +48,13 @@ namespace TheLudoGameEngine
             currentToken.CountTokenSteps(currentToken, die);
             currentToken.AtEndLap();
 
-            
             currentToken.CountGameBordPosition(die);
             KnockOutAnotherToken(currentToken, game);
-            
+
             currentToken.TokenInGoal();
             game.CheckForWinner(currentPlayer);
 
-            if(die != 6 && game.Finished == false)
+            if (die != 6 && !game.Finished)
             {
                 game.UpdateTurnAndRound();
             }
@@ -63,7 +63,7 @@ namespace TheLudoGameEngine
         //Run the method to update the games player turn and round if a player can't move any token
         public void RunGameUpdate(Game game)
         {
-           game.UpdateTurnAndRound();
+            game.UpdateTurnAndRound();
         }
 
         //Returns a list of saved unfinished games
@@ -75,7 +75,7 @@ namespace TheLudoGameEngine
         //Load the selected game
         public Game LoadPreviousGame(List<Game> prevGames, int gameID)
         {
-            return prevGames.Where(g => g.GameID == gameID).FirstOrDefault();
+            return prevGames.FirstOrDefault(g => g.GameID == gameID);
         }
 
         //Saves the game
@@ -101,9 +101,9 @@ namespace TheLudoGameEngine
         {
             tokenToKnockOut = game.Players.SelectMany(t => t.Tokens).Distinct().Except(game.Players[game.PlayerTurn].Tokens).
             Where(t => t.GameBoardPosition == currentToken.GameBoardPosition
-            && t.InGoal == false
-            && t.InNest == false
-            && t.InEndLap == false).FirstOrDefault();
+            && !t.InGoal
+            && !t.InNest
+            && !t.InEndLap).FirstOrDefault();
 
             if (tokenToKnockOut != null)
             {

@@ -24,7 +24,7 @@ namespace TheLudoGameEngine
 
         public Player GetVictoriousPlayer()
         {
-            return Players.Where(p => p.Winner == true).FirstOrDefault();
+            return Players.FirstOrDefault(p => p.Winner == true);
         }
 
         public void CreatePlayer(string name, int color)
