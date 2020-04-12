@@ -5,14 +5,17 @@ using System.Text;
 using System.Data;
 using Microsoft.Extensions.Configuration;
 using System.IO;
+using TheLudoGameEngine;
+using System.Linq;
 
 namespace TheLudoGameEngine
 {
-    internal class LudoContext : DbContext
+    public class LudoContext : DbContext
     {
         public DbSet<Game> Games { get; set; }
         public DbSet<Player> Players { get; set; }
         public DbSet<Token> Tokens { get; set; }
+        
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -23,6 +26,8 @@ namespace TheLudoGameEngine
             var defaultConnectionString = config.GetConnectionString("DefaultConnection");
             optionsBuilder.UseSqlServer(defaultConnectionString);
         }
+
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
