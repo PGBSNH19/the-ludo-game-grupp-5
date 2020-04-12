@@ -18,6 +18,7 @@ namespace TheLudoGameEngine
         {
             var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.dev.json");
 
+
             var config = builder.Build();
             var defaultConnectionString = config.GetConnectionString("DefaultConnection");
             optionsBuilder.UseSqlServer(defaultConnectionString);
