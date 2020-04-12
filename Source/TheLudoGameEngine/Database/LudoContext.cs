@@ -16,7 +16,7 @@ namespace TheLudoGameEngine
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json");
+            var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.dev.json");
 
             var config = builder.Build();
             var defaultConnectionString = config.GetConnectionString("DefaultConnection");
