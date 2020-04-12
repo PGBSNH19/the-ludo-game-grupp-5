@@ -37,6 +37,7 @@ namespace TheLudoGameXTest
 
             Assert.Equal(4, result);
         }
+
         [Fact]
         public void TokensToMove_TokensOnBoard1InNest1InGoal2DieResult6_TokensToMove2()
         {
@@ -44,19 +45,16 @@ namespace TheLudoGameXTest
             Engine engine = new Engine();
 
             game.CreatePlayer("Player1", 0);
-            
+
             game.Players[0].Tokens[0].InNest = true;
             game.Players[0].Tokens[0].InGoal = false;
 
-            
             game.Players[0].Tokens[1].InNest = false;
             game.Players[0].Tokens[1].InGoal = false;
 
-            
             game.Players[0].Tokens[2].InNest = false;
             game.Players[0].Tokens[2].InGoal = true;
 
-            
             game.Players[0].Tokens[3].InNest = false;
             game.Players[0].Tokens[3].InGoal = true;
 
@@ -82,6 +80,27 @@ namespace TheLudoGameXTest
             engine.KnockOutAnotherToken(game.Players[0].Tokens[0], game);
 
             Assert.True(game.Players[1].Tokens[0].InNest);
+        }
+
+        [Theory]
+        [InlineData(16)]
+        public void KnockOutAnotherToken_CantKnockoutPlayerIfInEndLap_False(int position)
+        {
+            Game game = new Game();
+            Engine engine = new Engine();
+            game.CreatePlayer("player1", 0);
+            game.Players[0].Tokens[0].GameBoardPosition = 16;
+            game.Players[0].Tokens[0].InNest = false;
+            game.Players[0].Tokens[0].InEndLap = false;
+
+            game.CreatePlayer("player2", 1);
+            game.Players[1].Tokens[0].GameBoardPosition = position;
+            game.Players[1].Tokens[0].InNest = false;
+            game.Players[1].Tokens[0].InEndLap = true;
+
+            engine.KnockOutAnotherToken(game.Players[0].Tokens[0], game);
+
+            Assert.False(game.Players[1].Tokens[0].InNest);
         }
     }
 }
