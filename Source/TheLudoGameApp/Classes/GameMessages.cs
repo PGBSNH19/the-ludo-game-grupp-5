@@ -52,6 +52,7 @@ namespace TheLudoGameApp.Classes
         {
             Console.WriteLine($"{player.PlayerName} turn");
             Console.WriteLine($"Press any button to throw the die");
+            Console.WriteLine("Press X to save and exit game");
         }
 
         public static void PrintKnockOut()

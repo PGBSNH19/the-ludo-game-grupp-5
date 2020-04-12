@@ -9,7 +9,6 @@ namespace TheLudoGameApp.Classes
     {
         public Game newGame = new Game();
         public Engine engine = new Engine();
-        private List<string> playerNames = new List<string>();
 
         public void MenuNewGame()
         {
@@ -43,68 +42,90 @@ namespace TheLudoGameApp.Classes
             RunGame(newGame);
         }
 
-        public void MenuLoadGame()
+        public void MenuLoadGameFromDataBase()
         {
-            var loadGame = engine.ShowPreviousGames();
-            GameMessages.PrintLoadGameList(loadGame);
-            RunGame(loadGame[int.Parse(Console.ReadLine())]);
+            var loadgames = engine.ShowPreviousGames();
+            bool gameLoaded = false;
+            GameMessages.PrintLoadGameList(loadgames);
+            while (!gameLoaded)
+            {
+                string loadGameIndex = Console.ReadLine();
+                try
+                {
+                    RunGame(loadgames[int.Parse(loadGameIndex)]);
+                    gameLoaded = true;
+                }
+                catch 
+                {
+                    Console.WriteLine("Invalid input, try again");
+                }
+            }
         }
 
         public void RunGame(Game game)
         {
             bool gameFinished = false;
+            bool tokenChosed = false;
             while (!gameFinished)
             {
+                engine.SaveGame(game);
                 Console.Clear();
                 GameMessages.PrintCurrentStatus(game.Players);
                 GameMessages.PrintPlayerTurn(game.Players[game.PlayerTurn]);
-                Console.WriteLine(game.PlayerTurn);
-                Console.ReadKey();
-
-                var die = engine.ThrowDie();
-
-                GameMessages.PrintDieResult(die);
-
-                var movableTokens = engine.TokensToMove(game.Players[game.PlayerTurn], die);
-
-                if (movableTokens.Count > 0)
+                string exitOrContinue = Console.ReadLine().ToLower();
+                if(exitOrContinue != "x")
                 {
-                    GameMessages.PrintTokenOptions(movableTokens);
+                    var die = engine.ThrowDie();
 
-                    while (!gameFinished)
+                    GameMessages.PrintDieResult(die);
+
+                    var movableTokens = engine.TokensToMove(game.Players[game.PlayerTurn], die);
+
+                    if (movableTokens.Count > 0)
                     {
-                        try
-                        {
-                            int movableTokensIndex = int.Parse(Console.ReadLine());
-                            var tokenToMove = engine.ChooseToken(game.Players[game.PlayerTurn].Tokens, movableTokens[movableTokensIndex]);
-                            engine.RunMovementAction(tokenToMove, die, game, game.Players[game.PlayerTurn]);
-                            if (engine.tokenToKnockOut != null)
-                            {
-                                Console.WriteLine($"{tokenToMove.TokenColor} {tokenToMove.TokenNumber} knocked out {engine.tokenToKnockOut.TokenColor} {engine.tokenToKnockOut.TokenNumber}");
+                        GameMessages.PrintTokenOptions(movableTokens);
 
-                                //Thread.Sleep(5000);
-                                Console.ReadKey();
-                            }
-                            gameFinished = true;
-                        }
-                        catch
+                        while (!tokenChosed)
                         {
-                            Console.WriteLine("Invalid token, try again");
+                            try
+                            {
+                                int movableTokensIndex = int.Parse(Console.ReadLine());
+                                var tokenToMove = engine.ChooseToken(game.Players[game.PlayerTurn].Tokens, movableTokens[movableTokensIndex]);
+                                engine.RunPlayerTurn(tokenToMove, die, game, game.Players[game.PlayerTurn]);
+                                if (engine.tokenToKnockOut != null)
+                                {
+                                    Console.WriteLine($"{tokenToMove.TokenColor} {tokenToMove.TokenNumber} knocked out {engine.tokenToKnockOut.TokenColor} {engine.tokenToKnockOut.TokenNumber}");
+                                    Console.WriteLine("Press any key to continue");
+                                    Console.ReadKey();
+                                    
+                                }
+                                tokenChosed = true;
+                            }
+                            catch
+                            {
+                                Console.WriteLine("Invalid token, try again");
+                            }
                         }
                     }
+                    else
+                    {
+                        Console.WriteLine("You need to throw 1 or 6 to leave the nest");
+                        Console.ReadKey();
+                        engine.RunGameUpdate(game);
+                    }
+
+                    gameFinished = game.Finished;
                 }
                 else
                 {
-                    Console.WriteLine("You need to throw 1 or 6 to leave the nest");
-                    Console.ReadKey();
-                    engine.RunGameUpdate(game);
+                    engine.SaveGame(game);
+                    MainMenu.Menu();
                 }
-
-                gameFinished = game.Finished;
             }
             Console.Clear();
             GameMessages.PrintCurrentStatus(game.Players);
             GameMessages.PrintWinner(game.GetVictoriousPlayer());
+            Console.WriteLine("Press any key to retun to main menu");
             Console.ReadKey();
         }
     }

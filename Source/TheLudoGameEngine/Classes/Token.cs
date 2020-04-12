@@ -29,8 +29,6 @@
                 currentToken.StepsCounter = 45 - (even - 45);
                 currentToken.TokensStartPostion(currentToken);
             }
-
-            currentToken.AtEndLap();
         }
 
         public bool AtEndLap()

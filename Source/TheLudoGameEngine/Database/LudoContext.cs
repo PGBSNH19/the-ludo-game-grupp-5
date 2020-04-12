@@ -33,7 +33,7 @@ namespace TheLudoGameEngine
             modelBuilder.Entity<Game>().HasMany(g => g.Players).WithOne(p => p.Game).IsRequired();
             modelBuilder.Entity<Player>().HasMany(p => p.Tokens).WithOne(t => t.Player).IsRequired();
 
-            modelBuilder.Entity<Game>().Property(d => d.LastSaved).HasColumnType("SMALLDATETIME").HasDefaultValueSql("SYSDATETIME()").ValueGeneratedOnAddOrUpdate();
+            modelBuilder.Entity<Game>().Property(d => d.LastSaved).HasColumnType("SMALLDATETIME");
         }
     }
 }

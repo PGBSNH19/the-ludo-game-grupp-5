@@ -38,7 +38,7 @@ namespace TheLudoGameEngine
         }
 
         //Runs the token movment action and calculate the tokens new position/state
-        public void RunMovementAction(Token currentToken, int die, Game game, Player currentPlayer)
+        public void RunPlayerTurn(Token currentToken, int die, Game game, Player currentPlayer)
         {
             if (currentToken.InNest)
             {
@@ -81,7 +81,7 @@ namespace TheLudoGameEngine
         //Saves the game
         public void SaveGame(Game game)
         {
-            //game.LastSaved = DateTime.Now;
+            game.LastSaved = DateTime.Now;
             using (var saveContext = new LudoContext())
             {
                 try

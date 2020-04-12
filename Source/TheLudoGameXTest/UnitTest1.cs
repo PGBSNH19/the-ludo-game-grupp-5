@@ -6,6 +6,21 @@ namespace TheLudoGameXTest
     public class UnitTest1
     {
         [Theory]
+        [InlineData("Red", 40)]
+        [InlineData("Blue", 10)]
+        [InlineData("Green", 20)]
+        [InlineData("Yellow", 30)]
+        public void ColorTest(string color, int startPostion)
+        {
+            Token testToken = new Token { TokenColor = color };
+
+            testToken.TokensStartPostion(testToken);
+
+            Assert.Equal(startPostion, testToken.GameBoardPosition);
+        }
+
+
+        [Theory]
         [InlineData(1)]
         [InlineData(6)]
         public void TokensToMove_HowManyTokenCanIMove(int dieNumber)
@@ -72,7 +87,7 @@ namespace TheLudoGameXTest
         public void Token_MoveFromGameBoardToGoalLine_True()
         {
             //Arrange
-            var testToken = new Token { StepsCounter = 44 };
+            var testToken = new Token { StepsCounter = 38 };
 
             //Act
             testToken.CountTokenSteps(testToken, 5);
@@ -107,32 +122,18 @@ namespace TheLudoGameXTest
             Assert.Equal(36, testToken.GameBoardPosition);
         }
 
-        [Fact]
-        public void Token_MovmeToken_FromStep2And5ForwardToStep7_False()
-        {
-            Token testToken = new Token { StepsCounter = 2 };
-            testToken.CountTokenSteps(testToken, 5);
-            Assert.Equal(8, testToken.StepsCounter);
-        }
 
         [Fact]
-        public void Token_MovmeToken_FromStep2And5Forward_Step7()
+        public void MoveToken_FromStep2And5Forward_Step7()
         {
             var testToken = new Token { StepsCounter = 2 };
             testToken.CountTokenSteps(testToken, 5);
             Assert.Equal(7, testToken.StepsCounter);
         }
 
-        [Fact]
-        public void MoveToken_FromPostion44_ToPosition42_False()
-        {
-            Token testToken = new Token { StepsCounter = 44 };
-            testToken.CountTokenSteps(testToken, 5);
-            Assert.Equal(42, testToken.StepsCounter);
-        }
 
         [Fact]
-        public void Token_MoveToken_BackwardsFromGoal_True()
+        public void MoveToken_FromStep44And1StepForwardAnd4StepsBackwards_Step41()
         {
             Token testToken = new Token { StepsCounter = 44 };
             testToken.CountTokenSteps(testToken, 5);
@@ -155,14 +156,6 @@ namespace TheLudoGameXTest
 
             //Assert
             Assert.True(testGame.Finished);
-        }
-
-        [Fact]
-        public void Token_InGoal_True()
-        {
-            Token testToken = new Token { StepsCounter = 45 };
-            testToken.TokenInGoal();
-            Assert.True(testToken.InGoal);
         }
 
         [Fact]
@@ -215,21 +208,6 @@ namespace TheLudoGameXTest
             testGame.UpdateTurnAndRound();
 
             Assert.Equal(0, testGame.PlayerTurn);
-        }
-
-        [Fact]
-        public void Game_UpdateGameRound4To5_GameRound5()
-        {
-            Game testGame = new Game();
-            testGame.CreatePlayer("testplayer1", 1);
-            testGame.CreatePlayer("testplayer2", 2);
-            testGame.CreatePlayer("testplayer3", 3);
-
-            testGame.PlayerTurn = 2;
-            testGame.Round = 4;
-
-            testGame.UpdateTurnAndRound();
-            Assert.Equal(5, testGame.Round);
         }
     }
 }

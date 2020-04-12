@@ -31,8 +31,7 @@ namespace TheLudoGameApp.Classes
                         break;
 
                     case "1":
-                        menu.MenuLoadGame();
-                        mainMenu = false;
+                        menu.MenuLoadGameFromDataBase();
                         break;
 
                     case "2":
