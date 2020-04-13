@@ -46,7 +46,7 @@ namespace TheLudoGameEngine
             Players.Add(newPlayer);
         }
 
-        private enum Colors
+        public enum Colors
         {
             Red,
             Blue,
@@ -67,10 +67,8 @@ namespace TheLudoGameEngine
 
         public bool CheckForWinner(Player player)
         {
-            
             if (player.Tokens.Where(p => p.InGoal == true).Count() == 4)
             {
-
                 player.Winner = true;
                 return Finished = true;
             }

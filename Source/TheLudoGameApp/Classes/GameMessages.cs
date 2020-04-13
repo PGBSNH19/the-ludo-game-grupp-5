@@ -19,39 +19,39 @@ namespace TheLudoGameApp.Classes
         {
             foreach (var player in players)
             {
-                Console.WriteLine($"{player.PlayerColor} {player.PlayerName}\n");
+                player.WriteLine($"{player.PlayerColor} {player.PlayerName}\n");
                 foreach (var token in player.Tokens)
                 {
                     if (token.InNest == true)
                     {
-                        Console.WriteLine($"{token.TokenColor} {token.TokenNumber}: In nest");
+                        player.WriteLine($"{token.TokenColor} {token.TokenNumber}: In nest");
                     }
                     else if (token.InNest == false && token.InGoal == false && token.InEndLap == false)
                     {
-                        Console.WriteLine($"{token.TokenColor} {token.TokenNumber}: On space {token.GameBoardPosition} Steps: {token.StepsCounter}");
+                        player.WriteLine($"{token.TokenColor} {token.TokenNumber}: On space {token.GameBoardPosition} Steps: {token.StepsCounter}");
                     }
                     else if (token.InEndLap == true && token.InGoal == false)
                     {
-                        Console.WriteLine($"{token.TokenColor} {token.TokenNumber}: At goalline Steps: {token.StepsCounter}");
+                        player.WriteLine($"{token.TokenColor} {token.TokenNumber}: At goalline Steps: {token.StepsCounter}");
                     }
                     else
                     {
-                        Console.WriteLine($"{token.TokenColor} {token.TokenNumber}: In Goal");
+                        player.WriteLine($"{token.TokenColor} {token.TokenNumber}: In Goal");
                     }
                 }
                 Console.WriteLine();
             }
         }
 
-        public static void PrintDieResult(int die)
+        public static void PrintDieResult(int die, Player player)
         {
-            Console.WriteLine($"Die result: {die}");
+            player.WriteLine($"Die result: {die}");
         }
 
         public static void PrintPlayerTurn(Player player)
         {
-            Console.WriteLine($"{player.PlayerName} turn");
-            Console.WriteLine($"Press any button to throw the die");
+            player.WriteLine($"{player.PlayerName} turn");
+            player.WriteLine($"Press any button to throw the die");
             Console.WriteLine("Press X to save and exit game");
         }
 
@@ -65,9 +65,9 @@ namespace TheLudoGameApp.Classes
             Console.WriteLine($"The winner is {player.PlayerName}");
         }
 
-        public static void PrintTokenOptions(List<Token> tokens)
+        public static void PrintTokenOptions(List<Token> tokens, Player player)
         {
-            Console.WriteLine("Which token do you want to move?");
+            player.WriteLine("Which token do you want to move?");
             for (int i = 0; i < tokens.Count; i++)
             {
                 if (tokens[i].InNest == true)

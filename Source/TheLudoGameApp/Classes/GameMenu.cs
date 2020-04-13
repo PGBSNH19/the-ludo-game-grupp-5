@@ -55,7 +55,7 @@ namespace TheLudoGameApp.Classes
                     RunGame(loadgames[int.Parse(loadGameIndex)]);
                     gameLoaded = true;
                 }
-                catch 
+                catch
                 {
                     Console.WriteLine("Invalid input, try again");
                 }
@@ -73,18 +73,18 @@ namespace TheLudoGameApp.Classes
                 GameMessages.PrintCurrentStatus(game.Players);
                 GameMessages.PrintPlayerTurn(game.Players[game.PlayerTurn]);
                 string exitOrContinue = Console.ReadLine().ToLower();
-                if(exitOrContinue != "x")
+                if (exitOrContinue != "x")
                 {
                     var die = engine.ThrowDie();
 
-                    GameMessages.PrintDieResult(die);
+                    GameMessages.PrintDieResult(die, game.Players[game.PlayerTurn]);
 
                     var movableTokens = engine.TokensToMove(game.Players[game.PlayerTurn], die);
 
                     if (movableTokens.Count > 0)
                     {
-                        GameMessages.PrintTokenOptions(movableTokens);
-
+                        GameMessages.PrintTokenOptions(movableTokens, game.Players[game.PlayerTurn]);
+                        tokenChosed = false;
                         while (!tokenChosed)
                         {
                             try
@@ -97,7 +97,6 @@ namespace TheLudoGameApp.Classes
                                     Console.WriteLine($"{tokenToMove.TokenColor} {tokenToMove.TokenNumber} knocked out {engine.tokenToKnockOut.TokenColor} {engine.tokenToKnockOut.TokenNumber}");
                                     Console.WriteLine("Press any key to continue");
                                     Console.ReadKey();
-                                    
                                 }
                                 tokenChosed = true;
                             }

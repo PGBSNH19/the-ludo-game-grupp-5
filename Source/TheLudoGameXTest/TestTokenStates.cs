@@ -75,7 +75,6 @@ namespace TheLudoGameXTest
             Assert.Equal(36, testToken.GameBoardPosition);
         }
 
-
         [Fact]
         public void MoveToken_FromStep2And5Forward_Step7()
         {
@@ -83,7 +82,6 @@ namespace TheLudoGameXTest
             testToken.CountTokenSteps(testToken, 5);
             Assert.Equal(7, testToken.StepsCounter);
         }
-
 
         [Fact]
         public void MoveToken_FromStep44And1StepForwardAnd4StepsBackwards_Step41()
