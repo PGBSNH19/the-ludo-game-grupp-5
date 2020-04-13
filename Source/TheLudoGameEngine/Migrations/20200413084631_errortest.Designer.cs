@@ -10,8 +10,8 @@ using TheLudoGameEngine;
 namespace TheLudoGameEngine.Migrations
 {
     [DbContext(typeof(LudoContext))]
-    [Migration("20200412085645_updateTime")]
-    partial class updateTime
+    [Migration("20200413084631_errortest")]
+    partial class errortest
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -35,7 +35,7 @@ namespace TheLudoGameEngine.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("LastSaved")
-                        .HasColumnType("SMALLDATETIME");
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("PlayerTurn")
                         .HasColumnType("int");

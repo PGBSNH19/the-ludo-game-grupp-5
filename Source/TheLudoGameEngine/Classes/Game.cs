@@ -27,6 +27,11 @@ namespace TheLudoGameEngine
             return Players.FirstOrDefault(p => p.Winner == true);
         }
 
+        public void NameTheGame(string name)
+        {
+            GameName = name;
+        }
+
         public void CreatePlayer(string name, int color)
         {
             var newPlayer = new Player();

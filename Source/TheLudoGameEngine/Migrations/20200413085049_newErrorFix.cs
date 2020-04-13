@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TheLudoGameEngine.Migrations
 {
-    public partial class updateTime : Migration
+    public partial class newErrorFix : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,8 +13,7 @@ namespace TheLudoGameEngine.Migrations
                 type: "SMALLDATETIME",
                 nullable: false,
                 oldClrType: typeof(DateTime),
-                oldType: "SMALLDATETIME",
-                oldDefaultValueSql: "SYSDATETIME()");
+                oldType: "datetime2");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -22,9 +21,8 @@ namespace TheLudoGameEngine.Migrations
             migrationBuilder.AlterColumn<DateTime>(
                 name: "LastSaved",
                 table: "Games",
-                type: "SMALLDATETIME",
+                type: "datetime2",
                 nullable: false,
-                defaultValueSql: "SYSDATETIME()",
                 oldClrType: typeof(DateTime),
                 oldType: "SMALLDATETIME");
         }

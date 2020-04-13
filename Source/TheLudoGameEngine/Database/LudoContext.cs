@@ -10,7 +10,7 @@ using System.Linq;
 
 namespace TheLudoGameEngine
 {
-    public class LudoContext : DbContext
+    internal class LudoContext : DbContext
     {
         public DbSet<Game> Games { get; set; }
         public DbSet<Player> Players { get; set; }
@@ -20,14 +20,10 @@ namespace TheLudoGameEngine
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.dev.json");
-
-
             var config = builder.Build();
             var defaultConnectionString = config.GetConnectionString("DefaultConnection");
             optionsBuilder.UseSqlServer(defaultConnectionString);
         }
-
-
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

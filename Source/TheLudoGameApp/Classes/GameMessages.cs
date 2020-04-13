@@ -10,7 +10,7 @@ namespace TheLudoGameApp.Classes
         {
             for (int i = 0; i < gamesToLoad.Count; i++)
             {
-                Console.WriteLine($"[{i}]: {gamesToLoad[i].GameID}");
+                Console.WriteLine($"[{i}]: Name: {gamesToLoad[i].GameName}     Last saved: {gamesToLoad[i].LastSaved}");
             }
             Console.WriteLine("Please chose which game you want to load");
         }

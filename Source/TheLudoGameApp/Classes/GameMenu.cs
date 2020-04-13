@@ -15,6 +15,11 @@ namespace TheLudoGameApp.Classes
             bool menu = true;
             while (menu)
             {
+                Console.WriteLine("Please name your game: ");
+
+                string gameName = Console.ReadLine();
+                newGame.NameTheGame(gameName);
+
                 Console.WriteLine("How many players min 2 and max 4? ");
                 string amountOfPlayers = Console.ReadLine();
                 if (int.TryParse(amountOfPlayers, out int number))
