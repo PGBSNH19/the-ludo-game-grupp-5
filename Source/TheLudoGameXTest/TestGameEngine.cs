@@ -33,7 +33,7 @@ namespace TheLudoGameXTest
             game.Players[0].Tokens[3].InNest = false;
             game.Players[0].Tokens[3].InGoal = false;
 
-            var result = engine.TokensToMove(game.Players[0], dieNumber).Count;
+            var result = engine.MovableTokens(game.Players[0], dieNumber).Count;
 
             Assert.Equal(4, result);
         }
@@ -58,7 +58,7 @@ namespace TheLudoGameXTest
             game.Players[0].Tokens[3].InNest = false;
             game.Players[0].Tokens[3].InGoal = true;
 
-            var result = engine.TokensToMove(game.Players[0], 6).Count;
+            var result = engine.MovableTokens(game.Players[0], 6).Count;
 
             Assert.Equal(2, result);
         }

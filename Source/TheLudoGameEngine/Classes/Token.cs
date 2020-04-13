@@ -7,12 +7,12 @@ namespace TheLudoGameEngine
     {
         public int TokenID { get; set; }
         public Player Player { get; set; }
-        public int GameBoardPosition { get; set; }
         public string TokenColor { get; set; }
         public int TokenNumber { get; set; }
+        public int GameBoardPosition { get; set; }
+        public int StepsCounter { get; set; }
         public bool InNest { get; set; }
         public bool InGoal { get; set; }
-        public int StepsCounter { get; set; }
         public bool InEndLap { get; set; }
 
         public void CountTokenSteps(Token currentToken, int dieResult)

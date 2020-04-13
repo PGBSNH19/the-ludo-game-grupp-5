@@ -24,7 +24,7 @@ namespace TheLudoGameEngine
           Don't return token if the token are in goal.
        */
 
-        public List<Token> TokensToMove(Player currentPlayer, int dieResult)
+        public List<Token> MovableTokens(Player currentPlayer, int dieResult)
         {
             return currentPlayer.Tokens.Where(t => (!t.InGoal && !t.InNest)
                                              || ((dieResult == 1 || dieResult == 6)

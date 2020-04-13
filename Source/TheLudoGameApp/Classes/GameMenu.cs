@@ -84,7 +84,7 @@ namespace TheLudoGameApp.Classes
 
                     GameMessages.PrintDieResult(die, game.Players[game.PlayerTurn]);
 
-                    var movableTokens = engine.TokensToMove(game.Players[game.PlayerTurn], die);
+                    var movableTokens = engine.MovableTokens(game.Players[game.PlayerTurn], die);
 
                     if (movableTokens.Count > 0)
                     {
