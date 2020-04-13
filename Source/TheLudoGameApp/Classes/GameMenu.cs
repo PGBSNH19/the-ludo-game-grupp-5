@@ -73,7 +73,7 @@ namespace TheLudoGameApp.Classes
             bool tokenChosed = false;
             while (!gameFinished)
             {
-                engine.SaveGame(game);
+                
                 Console.Clear();
                 GameMessages.PrintCurrentStatus(game.Players);
                 GameMessages.PrintPlayerTurn(game.Players[game.PlayerTurn]);
@@ -117,7 +117,7 @@ namespace TheLudoGameApp.Classes
                         Console.ReadKey();
                         engine.RunGameUpdate(game);
                     }
-
+                    engine.SaveGame(game);
                     gameFinished = game.Finished;
                 }
                 else
