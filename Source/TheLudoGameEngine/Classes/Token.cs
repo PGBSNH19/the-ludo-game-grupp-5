@@ -15,6 +15,7 @@ namespace TheLudoGameEngine
         public bool InGoal { get; set; }
         public bool InEndLap { get; set; }
 
+
         public void CountTokenSteps(Token currentToken, int dieResult)
         {
             int even = currentToken.StepCounter + dieResult;
