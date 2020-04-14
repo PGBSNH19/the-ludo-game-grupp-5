@@ -94,7 +94,7 @@ namespace TheLudoGameEngine.Migrations
                     b.Property<int>("PlayerID")
                         .HasColumnType("int");
 
-                    b.Property<int>("StepsCounter")
+                    b.Property<int>("StepCounter")
                         .HasColumnType("int");
 
                     b.Property<string>("TokenColor")

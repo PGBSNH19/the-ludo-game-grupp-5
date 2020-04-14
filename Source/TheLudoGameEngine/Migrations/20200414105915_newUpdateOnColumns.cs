@@ -2,18 +2,16 @@
 
 namespace TheLudoGameEngine.Migrations
 {
-    public partial class addedStepNBoardCounter : Migration
+    public partial class newUpdateOnColumns : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<bool>(
-                name: "InEndLap",
-                table: "Tokens",
-                nullable: false,
-                defaultValue: false);
+            migrationBuilder.DropColumn(
+                name: "StepsCounter",
+                table: "Tokens");
 
             migrationBuilder.AddColumn<int>(
-                name: "StepsCounter",
+                name: "StepCounter",
                 table: "Tokens",
                 nullable: false,
                 defaultValue: 0);
@@ -22,12 +20,15 @@ namespace TheLudoGameEngine.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "InEndLap",
+                name: "StepCounter",
                 table: "Tokens");
 
-            migrationBuilder.DropColumn(
+            migrationBuilder.AddColumn<int>(
                 name: "StepsCounter",
-                table: "Tokens");
+                table: "Tokens",
+                type: "int",
+                nullable: false,
+                defaultValue: 0);
         }
     }
 }

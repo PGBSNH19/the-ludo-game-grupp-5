@@ -10,8 +10,8 @@ using TheLudoGameEngine;
 namespace TheLudoGameEngine.Migrations
 {
     [DbContext(typeof(LudoContext))]
-    [Migration("20200404165827_update")]
-    partial class update
+    [Migration("20200414105915_newUpdateOnColumns")]
+    partial class newUpdateOnColumns
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -35,7 +35,7 @@ namespace TheLudoGameEngine.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("LastSaved")
-                        .HasColumnType("DATETIME");
+                        .HasColumnType("SMALLDATETIME");
 
                     b.Property<int>("PlayerTurn")
                         .HasColumnType("int");
@@ -84,6 +84,9 @@ namespace TheLudoGameEngine.Migrations
                     b.Property<int>("GameBoardPosition")
                         .HasColumnType("int");
 
+                    b.Property<bool>("InEndLap")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("InGoal")
                         .HasColumnType("bit");
 
@@ -91,6 +94,9 @@ namespace TheLudoGameEngine.Migrations
                         .HasColumnType("bit");
 
                     b.Property<int>("PlayerID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StepCounter")
                         .HasColumnType("int");
 
                     b.Property<string>("TokenColor")
