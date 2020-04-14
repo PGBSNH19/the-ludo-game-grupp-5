@@ -23,6 +23,7 @@ namespace TheLudoGameEngine
             var config = builder.Build();
             var defaultConnectionString = config.GetConnectionString("DefaultConnection");
             optionsBuilder.UseSqlServer(defaultConnectionString);
+            
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -35,6 +36,7 @@ namespace TheLudoGameEngine
             modelBuilder.Entity<Player>().HasMany(p => p.Tokens).WithOne(t => t.Player).IsRequired();
 
             modelBuilder.Entity<Game>().Property(d => d.LastSaved).HasColumnType("SMALLDATETIME");
+
         }
     }
 }
