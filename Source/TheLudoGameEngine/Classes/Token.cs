@@ -10,33 +10,33 @@ namespace TheLudoGameEngine
         public string TokenColor { get; set; }
         public int TokenNumber { get; set; }
         public int GameBoardPosition { get; set; }
-        public int StepsCounter { get; set; }
+        public int StepCounter { get; set; }
         public bool InNest { get; set; }
         public bool InGoal { get; set; }
         public bool InEndLap { get; set; }
 
         public void CountTokenSteps(Token currentToken, int dieResult)
         {
-            int even = currentToken.StepsCounter + dieResult;
+            int even = currentToken.StepCounter + dieResult;
 
             if (even <= 45)
             {
-                currentToken.StepsCounter += dieResult;
-                if (currentToken.StepsCounter >= 40)
+                currentToken.StepCounter += dieResult;
+                if (currentToken.StepCounter >= 40)
                 {
-                    currentToken.TokensStartPostion(currentToken);
+                    currentToken.TokenStartGameBoardPosition(currentToken);
                 }
             }
             else
             {
-                currentToken.StepsCounter = 45 - (even - 45);
-                currentToken.TokensStartPostion(currentToken);
+                currentToken.StepCounter = 45 - (even - 45);
+                currentToken.TokenStartGameBoardPosition(currentToken);
             }
         }
 
         public bool AtEndLap()
         {
-            if (StepsCounter > 40)
+            if (StepCounter > 40)
             {
                 return InEndLap = true;
             }
@@ -48,7 +48,7 @@ namespace TheLudoGameEngine
 
         public void CountGameBordPosition(int dieResult)
         {
-            if (InEndLap != true && StepsCounter < 40)
+            if (InEndLap != true && StepCounter < 40)
             {
                 int lap = GameBoardPosition + dieResult;
                 if (lap <= 40)
@@ -64,7 +64,7 @@ namespace TheLudoGameEngine
 
         public bool TokenInGoal()
         {
-            if (StepsCounter == 45)
+            if (StepCounter == 45)
             {
                 return InGoal = true;
             }
@@ -74,23 +74,23 @@ namespace TheLudoGameEngine
             }
         }
 
-        public void TokensStartPostion(Token setEnd)
+        public void TokenStartGameBoardPosition(Token setStart)
         {
-            if (setEnd.TokenColor == "Red")
+            if (setStart.TokenColor == "Red")
             {
-                setEnd.GameBoardPosition = 40;
+                setStart.GameBoardPosition = 40;
             }
-            else if (setEnd.TokenColor == "Blue")
+            else if (setStart.TokenColor == "Blue")
             {
-                setEnd.GameBoardPosition = 10;
+                setStart.GameBoardPosition = 10;
             }
-            else if (setEnd.TokenColor == "Green")
+            else if (setStart.TokenColor == "Green")
             {
-                setEnd.GameBoardPosition = 20;
+                setStart.GameBoardPosition = 20;
             }
-            else if (setEnd.TokenColor == "Yellow")
+            else if (setStart.TokenColor == "Yellow")
             {
-                setEnd.GameBoardPosition = 30;
+                setStart.GameBoardPosition = 30;
             }
         }
     }

@@ -49,7 +49,7 @@ namespace TheLudoGameApp.Classes
 
         public void MenuLoadGameFromDataBase()
         {
-            var loadgames = engine.ShowPreviousGames();
+            var loadgames = engine.LoadPreviousGamesFromDataBase();
             bool gameLoaded = false;
             GameMessages.PrintLoadGameList(loadgames);
             while (!gameLoaded)
@@ -117,12 +117,12 @@ namespace TheLudoGameApp.Classes
                         Console.ReadKey();
                         engine.RunGameUpdate(game);
                     }
-                    engine.SaveGame(game);
+                    engine.SaveGameToDataBase(game);
                     gameFinished = game.Finished;
                 }
                 else
                 {
-                    engine.SaveGame(game);
+                    engine.SaveGameToDataBase(game);
                     MainMenu.Menu();
                 }
             }

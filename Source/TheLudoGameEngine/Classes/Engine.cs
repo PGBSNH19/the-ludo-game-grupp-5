@@ -32,9 +32,9 @@ namespace TheLudoGameEngine
                                              && !t.InGoal)).ToList();
         }
 
-        public Token ChooseToken(List<Token> tokensToPlay, Token tokenID)
+        public Token ChooseToken(List<Token> tokensToPlay, Token tokenToMove)
         {
-            return tokensToPlay.FirstOrDefault(t => t == tokenID);
+            return tokensToPlay.FirstOrDefault(t => t == tokenToMove);
         }
 
         //Runs the token movment action and calculate the tokens new position/state
@@ -67,19 +67,13 @@ namespace TheLudoGameEngine
         }
 
         //Returns a list of saved unfinished games
-        public List<Game> ShowPreviousGames()
+        public List<Game> LoadPreviousGamesFromDataBase()
         {
             return myContext.Games.Include(g => g.Players).ThenInclude(p => p.Tokens).Where(g => g.Finished != true).ToList();
         }
 
-        //Load the selected game
-        public Game LoadPreviousGame(List<Game> prevGames, int gameID)
-        {
-            return prevGames.FirstOrDefault(g => g.GameID == gameID);
-        }
-
         //Saves the game
-        public void SaveGame(Game game)
+        public void SaveGameToDataBase(Game game)
         {
             game.LastSaved = DateTime.Now;
             using (var saveContext = new LudoContext())
@@ -108,8 +102,8 @@ namespace TheLudoGameEngine
             if (tokenToKnockOut != null)
             {
                 tokenToKnockOut.InNest = true;
-                tokenToKnockOut.TokensStartPostion(tokenToKnockOut);
-                tokenToKnockOut.StepsCounter = 0;
+                tokenToKnockOut.TokenStartGameBoardPosition(tokenToKnockOut);
+                tokenToKnockOut.StepCounter = 0;
             }
         }
     }

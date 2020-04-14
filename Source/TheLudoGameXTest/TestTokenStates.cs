@@ -17,7 +17,7 @@ namespace TheLudoGameXTest
         {
             Token testToken = new Token { TokenColor = color };
 
-            testToken.TokensStartPostion(testToken);
+            testToken.TokenStartGameBoardPosition(testToken);
 
             Assert.Equal(startPostion, testToken.GameBoardPosition);
         }
@@ -26,7 +26,7 @@ namespace TheLudoGameXTest
         public void Token_MoveFromStep43AndForward2_InGoal()
         {
             //Arrange
-            var testToken = new Token { StepsCounter = 43 };
+            var testToken = new Token { StepCounter = 43 };
 
             //Act
             testToken.CountTokenSteps(testToken, 2);
@@ -40,7 +40,7 @@ namespace TheLudoGameXTest
         public void Token_MoveFromGameBoardToGoalLine_True()
         {
             //Arrange
-            var testToken = new Token { StepsCounter = 38 };
+            var testToken = new Token { StepCounter = 38 };
 
             //Act
             testToken.CountTokenSteps(testToken, 5);
@@ -68,7 +68,7 @@ namespace TheLudoGameXTest
             var testToken = new Token { TokenColor = "Yellow" };
 
             //Act
-            testToken.TokensStartPostion(testToken);
+            testToken.TokenStartGameBoardPosition(testToken);
             testToken.CountGameBordPosition(6);
 
             //Assert
@@ -78,17 +78,17 @@ namespace TheLudoGameXTest
         [Fact]
         public void MoveToken_FromStep2And5Forward_Step7()
         {
-            var testToken = new Token { StepsCounter = 2 };
+            var testToken = new Token { StepCounter = 2 };
             testToken.CountTokenSteps(testToken, 5);
-            Assert.Equal(7, testToken.StepsCounter);
+            Assert.Equal(7, testToken.StepCounter);
         }
 
         [Fact]
         public void MoveToken_FromStep44And1StepForwardAnd4StepsBackwards_Step41()
         {
-            Token testToken = new Token { StepsCounter = 44 };
+            Token testToken = new Token { StepCounter = 44 };
             testToken.CountTokenSteps(testToken, 5);
-            Assert.Equal(41, testToken.StepsCounter);
+            Assert.Equal(41, testToken.StepCounter);
         }
     }
 }

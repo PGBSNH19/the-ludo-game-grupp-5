@@ -27,7 +27,7 @@ namespace TheLudoGameXTest
         [Fact]
         public void Token_InGoal_False()
         {
-            Token testToken = new Token { StepsCounter = 44 };
+            Token testToken = new Token { StepCounter = 44 };
             testToken.TokenInGoal();
             Assert.False(testToken.InGoal);
         }

@@ -28,11 +28,11 @@ namespace TheLudoGameApp.Classes
                     }
                     else if (token.InNest == false && token.InGoal == false && token.InEndLap == false)
                     {
-                        player.WriteLine($"{token.TokenColor} {token.TokenNumber}: On space {token.GameBoardPosition} Steps: {token.StepsCounter}");
+                        player.WriteLine($"{token.TokenColor} {token.TokenNumber}: On space {token.GameBoardPosition} Steps: {token.StepCounter}");
                     }
                     else if (token.InEndLap == true && token.InGoal == false)
                     {
-                        player.WriteLine($"{token.TokenColor} {token.TokenNumber}: At goalline Steps: {token.StepsCounter}");
+                        player.WriteLine($"{token.TokenColor} {token.TokenNumber}: At goalline Steps: {token.StepCounter}");
                     }
                     else
                     {
