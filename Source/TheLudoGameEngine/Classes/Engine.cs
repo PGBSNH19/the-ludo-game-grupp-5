@@ -48,7 +48,7 @@ namespace TheLudoGameEngine
             currentToken.CountTokenSteps(currentToken, die);
             currentToken.AtEndLap();
 
-            currentToken.CountGameBordPosition(die);
+            currentToken.CountTokenGameBordPosition(die);
             KnockOutAnotherToken(currentToken, game);
 
             currentToken.TokenInGoal();
@@ -70,6 +70,12 @@ namespace TheLudoGameEngine
         public List<Game> LoadPreviousGamesFromDataBase()
         {
             return myContext.Games.Include(g => g.Players).ThenInclude(p => p.Tokens).Where(g => g.Finished != true).ToList();
+        }
+
+        //Returns a list of finished games
+        public List<Game> LoadAllFinishedGamesFromDataBase()
+        {
+            return myContext.Games.Include(g => g.Players).ThenInclude(p => p.Tokens).Where(g => g.Finished != false).ToList();
         }
 
         //Saves the game

@@ -56,7 +56,7 @@ namespace TheLudoGameXTest
             var testToken = new Token { GameBoardPosition = 36 };
 
             //Act
-            testToken.CountGameBordPosition(5);
+            testToken.CountTokenGameBordPosition(5);
 
             Assert.Equal(1, testToken.GameBoardPosition);
         }
@@ -69,7 +69,7 @@ namespace TheLudoGameXTest
 
             //Act
             testToken.TokenStartGameBoardPosition(testToken);
-            testToken.CountGameBordPosition(6);
+            testToken.CountTokenGameBordPosition(6);
 
             //Assert
             Assert.Equal(36, testToken.GameBoardPosition);

@@ -8,8 +8,8 @@ namespace TheLudoGameApp.Classes
         {
             GameMenu menu = new GameMenu();
 
-            bool mainMenu = true;
-            while (mainMenu)
+            bool menuRunning = true;
+            while (menuRunning)
             {
                 Console.Clear();
 
@@ -18,7 +18,8 @@ namespace TheLudoGameApp.Classes
                 Console.WriteLine("---- Main Menu -----");
                 Console.WriteLine("[0] Create New Game");
                 Console.WriteLine("[1] Load Game");
-                Console.WriteLine("[2] Exit");
+                Console.WriteLine("[2] See previous games");
+                Console.WriteLine("[3] Exit");
 
                 string option = Console.ReadLine();
 
@@ -35,8 +36,12 @@ namespace TheLudoGameApp.Classes
                         break;
 
                     case "2":
+                        menu.ShowPreviousGamesFromDataBase();
+                        break;
+
+                    case "3":
                         Console.WriteLine("Exit program");
-                        mainMenu = false;
+                        menuRunning = false;
                         break;
                 }
             }

@@ -67,6 +67,12 @@ namespace TheLudoGameApp.Classes
             }
         }
 
+        public void ShowPreviousGamesFromDataBase()
+        {
+            var loadGames = engine.LoadAllFinishedGamesFromDataBase();
+            GameMessages.PrintPreviousGameResult(loadGames);
+        }
+
         public void RunGame(Game game)
         {
             bool gameFinished = false;
@@ -75,20 +81,20 @@ namespace TheLudoGameApp.Classes
             {
                 
                 Console.Clear();
-                GameMessages.PrintCurrentStatus(game.Players);
+                GameMessages.PrintAllPlayerAndTokensValue(game.Players);
                 GameMessages.PrintPlayerTurn(game.Players[game.PlayerTurn]);
                 string exitOrContinue = Console.ReadLine().ToLower();
                 if (exitOrContinue != "x")
                 {
                     var die = engine.ThrowDie();
 
-                    GameMessages.PrintDieResult(die, game.Players[game.PlayerTurn]);
+                    GameMessages.PrintDieResult(die);
 
                     var movableTokens = engine.MovableTokens(game.Players[game.PlayerTurn], die);
 
                     if (movableTokens.Count > 0)
                     {
-                        GameMessages.PrintTokenOptions(movableTokens, game.Players[game.PlayerTurn]);
+                        GameMessages.PrintMovableTokens(movableTokens);
                         tokenChosed = false;
                         while (!tokenChosed)
                         {
@@ -127,7 +133,7 @@ namespace TheLudoGameApp.Classes
                 }
             }
             Console.Clear();
-            GameMessages.PrintCurrentStatus(game.Players);
+            GameMessages.PrintAllPlayerAndTokensValue(game.Players);
             GameMessages.PrintWinner(game.GetVictoriousPlayer());
             Console.WriteLine("Press any key to retun to main menu");
             Console.ReadKey();

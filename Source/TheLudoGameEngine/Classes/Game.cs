@@ -22,6 +22,14 @@ namespace TheLudoGameEngine
             Round = 1;
         }
 
+        public enum Colors
+        {
+            Red,
+            Blue,
+            Green,
+            Yellow
+        }
+
         public Player GetVictoriousPlayer()
         {
             return Players.FirstOrDefault(p => p.Winner == true);
@@ -49,14 +57,6 @@ namespace TheLudoGameEngine
             }
 
             Players.Add(newPlayer);
-        }
-
-        public enum Colors
-        {
-            Red,
-            Blue,
-            Green,
-            Yellow
         }
 
         public int UpdateTurnAndRound()

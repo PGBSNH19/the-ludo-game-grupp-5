@@ -46,7 +46,7 @@ namespace TheLudoGameEngine
             }
         }
 
-        public void CountGameBordPosition(int dieResult)
+        public void CountTokenGameBordPosition(int dieResult)
         {
             if (InEndLap != true && StepCounter < 40)
             {
