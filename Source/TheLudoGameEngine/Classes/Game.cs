@@ -5,7 +5,7 @@ using System.Linq;
 namespace TheLudoGameEngine
 
 {
-    public class Game 
+    public class Game
     {
         public int GameID { get; set; }
         public string GameName { get; set; }
@@ -22,7 +22,25 @@ namespace TheLudoGameEngine
             Round = 1;
         }
 
-        public void CreatePlayers(string name, int color)
+        public enum Colors
+        {
+            Red,
+            Blue,
+            Green,
+            Yellow
+        }
+
+        public Player GetVictoriousPlayer()
+        {
+            return Players.FirstOrDefault(p => p.Winner == true);
+        }
+
+        public void NameTheGame(string name)
+        {
+            GameName = name;
+        }
+
+        public void CreatePlayer(string name, int color)
         {
             var newPlayer = new Player();
             newPlayer.PlayerName = name;
@@ -34,18 +52,11 @@ namespace TheLudoGameEngine
                 newToken.InNest = true;
                 newToken.TokenNumber = i;
                 newToken.TokenColor = Enum.GetName(typeof(Colors), color);
+                newToken.TokenStartGameBoardPosition(newToken);
                 newPlayer.Tokens.Add(newToken);
             }
 
             Players.Add(newPlayer);
-        }
-
-        enum Colors
-        {
-            Red,
-            Blue,
-            Green,
-            Yellow
         }
 
         public int UpdateTurnAndRound()
@@ -53,19 +64,20 @@ namespace TheLudoGameEngine
             PlayerTurn++;
             if (PlayerTurn > Players.Count - 1)
             {
+                Round++;
                 PlayerTurn = 0;
             }
             return PlayerTurn;
         }
 
-        public bool CheckWinner(Player player)
+        public bool CheckForWinner(Player player)
         {
             if (player.Tokens.Where(p => p.InGoal == true).Count() == 4)
             {
                 player.Winner = true;
-                return this.Finished = true;
+                return Finished = true;
             }
-            return this.Finished = false;
+            return Finished = false;
         }
     }
 }

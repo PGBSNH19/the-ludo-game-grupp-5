@@ -3,18 +3,27 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Data;
+using Microsoft.Extensions.Configuration;
+using System.IO;
+using TheLudoGameEngine;
+using System.Linq;
 
 namespace TheLudoGameEngine
 {
-    internal class MyContext : DbContext
+    internal class LudoContext : DbContext
     {
         public DbSet<Game> Games { get; set; }
         public DbSet<Player> Players { get; set; }
         public DbSet<Token> Tokens { get; set; }
+        
 
-        protected override void OnConfiguring(DbContextOptionsBuilder dbContext)
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            dbContext.UseSqlServer(@"Data Source=den1.mssql8.gear.host;Initial Catalog=dbtheludogame;User id=dbtheludogame;password=Ip5ych-!9Vb1;");
+            var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.dev.json");
+            var config = builder.Build();
+            var defaultConnectionString = config.GetConnectionString("DefaultConnection");
+            optionsBuilder.UseSqlServer(defaultConnectionString);
+            
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -26,7 +35,8 @@ namespace TheLudoGameEngine
             modelBuilder.Entity<Game>().HasMany(g => g.Players).WithOne(p => p.Game).IsRequired();
             modelBuilder.Entity<Player>().HasMany(p => p.Tokens).WithOne(t => t.Player).IsRequired();
 
-            modelBuilder.Entity<Game>().Property(d => d.LastSaved).HasColumnType("SMALLDATETIME").HasDefaultValueSql("SYSDATETIME()").ValueGeneratedOnAddOrUpdate();
+            modelBuilder.Entity<Game>().Property(d => d.LastSaved).HasColumnType("SMALLDATETIME");
+
         }
     }
 }

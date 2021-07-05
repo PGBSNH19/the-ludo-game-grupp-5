@@ -1,45 +1,98 @@
-﻿namespace TheLudoGameEngine
+﻿using System.Drawing;
+using TheLudoGameEngine;
+
+namespace TheLudoGameEngine
 {
     public class Token
     {
         public int TokenID { get; set; }
         public Player Player { get; set; }
-        public int GameBoardPosition { get; set; }
         public string TokenColor { get; set; }
         public int TokenNumber { get; set; }
+        public int GameBoardPosition { get; set; }
+        public int StepCounter { get; set; }
         public bool InNest { get; set; }
         public bool InGoal { get; set; }
+        public bool InEndLap { get; set; }
 
-        public int MoveToken(int dieResult)
+
+        public void CountTokenSteps(Token currentToken, int dieResult)
         {
-            for (int i = 1; i <= dieResult; i++)
+            int even = currentToken.StepCounter + dieResult;
+
+            if (even <= 45)
             {
-                if (this.GameBoardPosition >= 45)
+                currentToken.StepCounter += dieResult;
+                if (currentToken.StepCounter >= 40)
                 {
-                    for (int y = i; y <= dieResult; y++)
-                    {
-                        i++;
-                        this.GameBoardPosition--;
-                    }
+                    currentToken.TokenStartGameBoardPosition(currentToken);
+                }
+            }
+            else
+            {
+                currentToken.StepCounter = 45 - (even - 45);
+                currentToken.TokenStartGameBoardPosition(currentToken);
+            }
+        }
+
+        public bool AtEndLap()
+        {
+            if (StepCounter > 40)
+            {
+                return InEndLap = true;
+            }
+            else
+            {
+                return InEndLap = false;
+            }
+        }
+
+        public void CountTokenGameBordPosition(int dieResult)
+        {
+            if (InEndLap != true && StepCounter < 40)
+            {
+                int lap = GameBoardPosition + dieResult;
+                if (lap <= 40)
+                {
+                    GameBoardPosition += dieResult;
                 }
                 else
                 {
-                    this.GameBoardPosition++;
+                    GameBoardPosition = lap - 40;
                 }
             }
-            return this.GameBoardPosition;
         }
 
-        public bool HasFinished()
+        public bool TokenInGoal()
         {
-            this.InGoal = false;
-
-            if (this.GameBoardPosition == 45)
+            if (StepCounter == 45)
             {
-                this.InGoal = true;
+                return InGoal = true;
             }
+            else
+            {
+                return InGoal = false;
+            }
+        }
 
-            return this.InGoal;
+        public void TokenStartGameBoardPosition(Token setStart)
+        {
+            if (setStart.TokenColor == "Red")
+            {
+                setStart.GameBoardPosition = 40;
+            }
+            else if (setStart.TokenColor == "Blue")
+            {
+                setStart.GameBoardPosition = 10;
+            }
+            else if (setStart.TokenColor == "Green")
+            {
+                setStart.GameBoardPosition = 20;
+            }
+            else if (setStart.TokenColor == "Yellow")
+            {
+                setStart.GameBoardPosition = 30;
+            }
         }
     }
 }

@@ -3,17 +3,15 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TheLudoGameEngine;
 
 namespace TheLudoGameEngine.Migrations
 {
-    [DbContext(typeof(MyContext))]
-    [Migration("20200405101511_updateGameTabel")]
-    partial class updateGameTabel
+    [DbContext(typeof(LudoContext))]
+    partial class LudoContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,9 +33,7 @@ namespace TheLudoGameEngine.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("LastSaved")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("SMALLDATETIME")
-                        .HasDefaultValueSql("SYSDATETIME()");
+                        .HasColumnType("SMALLDATETIME");
 
                     b.Property<int>("PlayerTurn")
                         .HasColumnType("int");
@@ -86,6 +82,9 @@ namespace TheLudoGameEngine.Migrations
                     b.Property<int>("GameBoardPosition")
                         .HasColumnType("int");
 
+                    b.Property<bool>("InEndLap")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("InGoal")
                         .HasColumnType("bit");
 
@@ -93,6 +92,9 @@ namespace TheLudoGameEngine.Migrations
                         .HasColumnType("bit");
 
                     b.Property<int>("PlayerID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StepCounter")
                         .HasColumnType("int");
 
                     b.Property<string>("TokenColor")

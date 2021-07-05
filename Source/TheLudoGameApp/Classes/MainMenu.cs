@@ -1,17 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace TheLudoGameApp.Classes
 {
-    class MainMenu
+    internal class MainMenu
     {
         public static void Menu()
         {
             GameMenu menu = new GameMenu();
 
-            bool mainMenu = true;
-            while (mainMenu)
+            bool menuRunning = true;
+            while (menuRunning)
             {
                 Console.Clear();
 
@@ -20,8 +18,8 @@ namespace TheLudoGameApp.Classes
                 Console.WriteLine("---- Main Menu -----");
                 Console.WriteLine("[0] Create New Game");
                 Console.WriteLine("[1] Load Game");
-                Console.WriteLine("[2] Exit");
-
+                Console.WriteLine("[2] See previous games");
+                Console.WriteLine("[3] Exit");
 
                 string option = Console.ReadLine();
 
@@ -30,26 +28,29 @@ namespace TheLudoGameApp.Classes
                 switch (option)
                 {
                     case "0":
-                        menu.NewGameMenu();
+                        menu.MenuNewGame();
                         break;
 
                     case "1":
-                        menu.LoadGameMenu();
-                        mainMenu = false;
+                        menu.MenuLoadGameFromDataBase();
                         break;
 
                     case "2":
-                        Console.WriteLine("Exit program");
-                        mainMenu = false;
+                        menu.ShowPreviousGamesFromDataBase();
                         break;
 
+                    case "3":
+                        Console.WriteLine("Exit program");
+                        menuRunning = false;
+                        break;
                 }
             }
         }
+
         public static void Welcome()
         {
             Console.WriteLine(@"
-    
+
 ████████╗██╗░░██╗███████╗  ██╗░░░░░██╗░░░██╗██████╗░░█████╗░░██████╗░░█████╗░███╗░░░███╗███████╗
 ╚══██╔══╝██║░░██║██╔════╝  ██║░░░░░██║░░░██║██╔══██╗██╔══██╗██╔════╝░██╔══██╗████╗░████║██╔════╝
 ░░░██║░░░███████║█████╗░░  ██║░░░░░██║░░░██║██║░░██║██║░░██║██║░░██╗░███████║██╔████╔██║█████╗░░
@@ -61,4 +62,3 @@ namespace TheLudoGameApp.Classes
         }
     }
 }
-

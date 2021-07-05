@@ -2,13 +2,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Threading;
 
 namespace TheLudoGameEngine
 {
     public class Engine : Game
     {
-        MyContext myContext = new MyContext();
+        private LudoContext myContext = new LudoContext();
+        public Token tokenToKnockOut;
+
         //Simulates a diethrow
         public int ThrowDie()
         {
@@ -16,71 +18,99 @@ namespace TheLudoGameEngine
         }
 
         /*Returns a list of movable tokens, depending on the outcome of the diethrow and/or current player tokens position on the board
-          LINQ explanation:  
+          LINQ explanation:
           Return token if the outcome of the diethrow is 1 or 6 and the token position is in the nest
           Return token if the token is on the game board (not in the nest or in goal), dont care about the outcome of the diethrow
           Don't return token if the token are in goal.
        */
-        public List<Token> TokensToMove(Player currentPlayer, int dieResult)
+
+        public List<Token> MovableTokens(Player currentPlayer, int dieResult)
         {
-            return currentPlayer.Tokens.Where(t => (t.InGoal == false && t.InNest == false) || ((dieResult == 1 || dieResult == 6) && t.InNest == true && t.InGoal == false)).ToList();
+            return currentPlayer.Tokens.Where(t => (!t.InGoal && !t.InNest)
+                                             || ((dieResult == 1 || dieResult == 6)
+                                             && t.InNest
+                                             && !t.InGoal)).ToList();
         }
 
-
-        public Token ChooseToken(List<Token> tokensToPlay, Token tokenID)
+        public Token ChooseToken(List<Token> tokensToPlay, Token tokenToMove)
         {
-            return tokensToPlay.Where(s => s == tokenID).FirstOrDefault();
+            return tokensToPlay.FirstOrDefault(t => t == tokenToMove);
         }
-
 
         //Runs the token movment action and calculate the tokens new position/state
-        public void RunMovementAction(Token currentToken, int die)
+        public void RunPlayerTurn(Token currentToken, int die, Game game, Player currentPlayer)
         {
-            if (currentToken.InNest != false)
+            if (currentToken.InNest)
             {
                 currentToken.InNest = false;
             }
-            currentToken.MoveToken(die);
-            currentToken.HasFinished();
-        }
 
-        //Runs a gameupdate as calculate which playerturn is next, count rounds and control if the currentplayer have won the game
-        public void RunGameUpdate(Game game, Player currentPlayer)
-        {
-            game.CheckWinner(currentPlayer);
-            if (game.Finished != true)
+            currentToken.CountTokenSteps(currentToken, die);
+            currentToken.AtEndLap();
+
+            currentToken.CountTokenGameBordPosition(die);
+            KnockOutAnotherToken(currentToken, game);
+
+            currentToken.TokenInGoal();
+            game.CheckForWinner(currentPlayer);
+
+            if (die != 6 && !game.Finished)
             {
                 game.UpdateTurnAndRound();
             }
         }
 
+        //Run the method to update the games player turn and round if a player can't move any token
+        public void RunGameUpdate(Game game)
+        {
+            game.UpdateTurnAndRound();
+        }
 
         //Returns a list of saved unfinished games
-        public List<Game> LoadPreviousGames()
+        public List<Game> LoadPreviousGamesFromDataBase()
         {
             return myContext.Games.Include(g => g.Players).ThenInclude(p => p.Tokens).Where(g => g.Finished != true).ToList();
         }
 
+        //Returns a list of finished games
+        public List<Game> LoadAllFinishedGamesFromDataBase()
+        {
+            return myContext.Games.Include(g => g.Players).ThenInclude(p => p.Tokens).Where(g => g.Finished != false).ToList();
+        }
 
         //Saves the game
-        public void SaveGame(Game game)
+        public void SaveGameToDataBase(Game game)
         {
-            game.LastSaved = UpdateCurrentTime();
-
-            using (var saveContext = new MyContext())
+            game.LastSaved = DateTime.Now;
+            using (var saveContext = new LudoContext())
             {
                 try
                 {
-                    saveContext.Games.Update(game);
-                    saveContext.SaveChanges();
+                    myContext.Games.Update(game);
+                    myContext.SaveChanges();
                 }
                 catch
                 {
-                    saveContext.Games.Add(game);
-                    saveContext.SaveChanges();
+                    myContext.Games.Add(game);
+                    myContext.SaveChanges();
                 }
             }
         }
-       
+
+        public void KnockOutAnotherToken(Token currentToken, Game game)
+        {
+            tokenToKnockOut = game.Players.SelectMany(t => t.Tokens).Distinct().Except(game.Players[game.PlayerTurn].Tokens).
+            Where(t => t.GameBoardPosition == currentToken.GameBoardPosition
+            && !t.InGoal
+            && !t.InNest
+            && !t.InEndLap).FirstOrDefault();
+
+            if (tokenToKnockOut != null)
+            {
+                tokenToKnockOut.InNest = true;
+                tokenToKnockOut.TokenStartGameBoardPosition(tokenToKnockOut);
+                tokenToKnockOut.StepCounter = 0;
+            }
+        }
     }
 }
